@@ -8,15 +8,13 @@ CREATE TABLE `solicitudes`.`tl_situacion` (
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `tl_situacion`(`IDSit`,`sit_tipo_situacion`)
-VAlUES (1, 'Cuidado personal de al menos un niño o niña en etapa preescolar.');
+VAlUES (1, 'A)Cuidado personal de al menos un niño o niña en etapa preescolar.');
 
 INSERT INTO `tl_situacion`(`IDSit`,`sit_tipo_situacion`)
-VAlUES (2, 'Cuidado personal de al menos un niño o niña menor de 12 años.');
+VAlUES (2, 'B)Cuidado personal de al menos un niño o niña menor de 12 años.');
 
 INSERT INTO `tl_situacion`(`IDSit`,`sit_tipo_situacion`)
-VAlUES (3, 'Cuidado personas con alguna discapacidad.');
-
-
+VAlUES (3, 'C)Cuidado personas con alguna discapacidad.');
 
 
 
@@ -43,16 +41,16 @@ CREATE TABLE `solicitudes`.`ss_situacion` (
     PRIMARY KEY (IDTipoS)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
-INSERT INTO `ss_situacion` (`IDTipoS`, `tipo_S_tipo_solicitud`)
+INSERT INTO `ss_situacion` (`IDTipoS`, `tipoS_tipo_solicitud`)
 VALUES (1, 'Estudio de puesto de trabajo.');
 
-INSERT INTO `ss_situacion` (`IDTipoS`, `tipo_S_tipo_solicitud`)
+INSERT INTO `ss_situacion` (`IDTipoS`, `tipoS_tipo_solicitud`)
 VALUES (2,'Inspección de condiciones subestandar.');
 
-INSERT INTO `ss_situacion` (`IDTipoS`, `tipo_S_tipo_solicitud`)
+INSERT INTO `ss_situacion` (`IDTipoS`, `tipoS_tipo_solicitud`)
 VALUES (3,'Asesoría técnica S & SO.');
 
-INSERT INTO `ss_situacion` (`IDTipoS`, `tipo_S_tipo_solicitud`)
+INSERT INTO `ss_situacion` (`IDTipoS`, `tipoS_tipo_solicitud`)
 VALUES (4,'Otro.');
 
 
@@ -82,8 +80,6 @@ CREATE TABLE `solicitudes`.`funcionarios_TEA` (
     PRIMARY KEY (IDTFA),
     FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`);
 
-    
-
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 CREATE TABLE `solicitudes`.`teletrabajo` (
@@ -92,6 +88,8 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
     `IDSit` INT NOT NULL,
     `tele_num_formulario` INT (10) NOT NULL
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
+
+
 
 CREATE TABLE `solicitudes`.`cpp_motivo` (
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;

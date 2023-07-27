@@ -1,0 +1,15 @@
+los admin deben tener la opcion de llenar su propia solicitud y autorizar.
+la fecha de solicitud no se ingresa, se guarda en la base de datos.
+al guardar el estado de solicitud se guarda como pendiente de aprobacion,
+en fecha de ingreso a das se guarda una vez alguna persona haya firmado.
+
+una vez alguien haya aprobado o rechazado, se guarda esa fecha y el nombre de quien hizo esto
+podria haber una tabla con las solicitudes pendientes
+
+datos de usuario
+
+Nombre completo
+rut
+imagen de firma
+
+todos se registran igual y un superdmin les da permisos de director para la firma de documentos
