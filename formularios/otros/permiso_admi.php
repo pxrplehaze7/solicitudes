@@ -8,7 +8,7 @@ include("../../config/conexion.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F. Cuidador TEA</title>
+    <title>Permiso Administrativo</title>
     <link rel="icon" type="image/png" href="../../assets/img/favicon-32x32.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -34,7 +34,7 @@ include("../../config/conexion.php");
                         <img src="../../assets/img/salud_con_todo.jpg" width="100px">
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-8 d-flex align-items-center justify-content-center">
-                        <h3>Formulario de Registro para Funcionarios que sean Padres y/o Cuidadores de Niños, Niñas y Adolescentes con Trastorno del Espectro Autista (TEA), conforme a la Ley 21.545</h3>
+                        <h3>Solicitud de Permiso Administrativo</h3>
                     </div>
                     <div class="col-xs-12 col-sm-2 col-md-2 d-flex justify-content-end d-none d-sm-block">
                         <img src="../../assets/img/certificacion.jpg" width="100px">
@@ -43,6 +43,15 @@ include("../../config/conexion.php");
 
 
                 <div class="container-solicitud">
+
+
+<p>Nombre funcionario: <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario" required> RUT:  <input type="text" class="form-control" name="rut" id="rut" required> Cargo:                             <input type="text" class="form-control" id="" name="" required> viene en solicitar permiso <strong>CON</strong> goce de remuneraciones por 
+   </p>
+
+
+
+
+
 
                     <div class="row">
                         <div class="col-md-6">

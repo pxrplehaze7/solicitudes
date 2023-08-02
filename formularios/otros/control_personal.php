@@ -8,7 +8,7 @@ include("../../config/conexion.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F. Teletrabajo</title>
+    <title>Control de Personal</title>
     <link rel="icon" type="image/png" href="../../assets/img/favicon-32x32.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -34,7 +34,7 @@ include("../../config/conexion.php");
                         <img src="../../assets/img/salud_con_todo.jpg" width="100px">
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-8 d-flex align-items-center justify-content-center">
-                        <h1>Formulario De Teletrabajo</h1>
+                        <h1>Formulario de Control de Personal y Pago de Asignaciones Funcionarias</h1>
                     </div>
                     <div class="col-xs-12 col-sm-2 col-md-2 d-flex justify-content-end d-none d-sm-block">
                         <img src="../../assets/img/certificacion.jpg" width="100px">
@@ -46,13 +46,52 @@ include("../../config/conexion.php");
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="nombrefuncionario"><span style="color: #c40055;">*</span> Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario" required>
+
+                            <label for="idSelectLugar"><span style="color: #c40055;">*</span> Lugar</label>
+                            <select name="nameSelectLugar" id="idSelectLugar" class="form-select" ">
+                                                    <option value="" hidden> Selecciona</option>
+                                                    <?php
+                                                    mysqli_select_db($conn, 'das');
+
+                                                    $sqlLugar = "SELECT IDLugar, NombreLug FROM lugar";
+                                                    $resultadoLugar = mysqli_query($conn, $sqlLugar);
+                                                    while ($fila = mysqli_fetch_assoc($resultadoLugar)) {
+                                                        echo "<option value='" . $fila['IDLugar'] . "'>" . $fila['NombreLug'] . "</option>";
+                                                    }
+                                                    ?> 
+                        </select>
+                          <br>
+                    </div>
+                  
+                    <div class=" col-md-6">
+
+                                <label for="motivo"><span style="color: #c40055;">*</span> Motivo</label>
+                                <select name="motivo" class="form-select" id="motivo" class="form-select" onchange="mostrarOcultarInputs()">
+                                    <option value="" hidden> Selecciona</option>
+                                    <?php
+                                    mysqli_select_db($conn_sol, 'solicitudes');
+                                    $motivo = "SELECT IDMotivo, nomb_motivo FROM cpp_motivo";
+                                    $r_motivo = mysqli_query($conn_sol, $motivo);
+                                    while ($row_situacion = mysqli_fetch_assoc($r_motivo)) {
+                                        echo "<option value='" . $row_situacion['IDMotivo'] . "'>" . $row_situacion['nomb_motivo'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <h4>Solicitud de Reemplazo</h4>
+                        <div class="col-md-6">
+                            <label for="nombreareemplazar"><span style="color: #c40055;">*</span> Nombre del funcionario a reemplazar</label>
+                            <input type="text" class="form-control" id="nombreareemplazar" name="nombreareemplazar" required>
                             <br>
                         </div>
                         <div class="col-md-6">
-                            <label for="rut"><span style="color: #c40055;">*</span> R.U.T</label>
-                            <input type="text" class="form-control" name="rut" id="rut" required>
+                            <label for="estamento"><span style="color: #c40055;">*</span> Estamento</label>
+                            <input type="text" class="form-control" id="estamento" name="estamento" required>
+                            <br>
                         </div>
                     </div>
 
@@ -90,15 +129,15 @@ include("../../config/conexion.php");
                         </div>
                         <div class="col-md-6">
 
-                            <label for="situacion"><span style="color: #c40055;">*</span> Situación</label>
+                            <label for="situacion"><span style="color: #c40055;">*</span> Motivo</label>
                             <select name="situacion" class="form-select" id="situacion" class="form-select" onchange="mostrarOcultarInputs()">
                                 <option value="" hidden> Selecciona</option>
                                 <?php
-                                mysqli_select_db($conn_sol, 'solicitudes');
-                                $situacion = "SELECT IDSit, sit_tipo_situacion FROM tl_situacion";
-                                $r_situacion = mysqli_query($conn_sol, $situacion);
-                                while ($row_situacion = mysqli_fetch_assoc($r_situacion)) {
-                                    echo "<option value='" . $row_situacion['IDSit'] . "'>" . $row_situacion['sit_tipo_situacion'] . "</option>";
+                                mysqli_select_db($conn, 'solicitudes');
+                                $motivo = "SELECT IDMotivo, nomb_motivo FROM cpp_motivo";
+                                $r_motivo = mysqli_query($conn, $motivo);
+                                while ($row_situacion = mysqli_fetch_assoc($r_motivo)) {
+                                    echo "<option value='" . $row_motivo['IDMotivo'] . "'>" . $row_motivo['nomb_motivo'] . "</option>";
                                 }
                                 ?>
                             </select>

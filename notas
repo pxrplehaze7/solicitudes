@@ -13,3 +13,13 @@ rut
 imagen de firma
 
 todos se registran igual y un superdmin les da permisos de director para la firma de documentos
+
+en los formularios que se guardan en lacarpeta del trabajador, en el formulaario la llave foranea es idtra, entonces con el rut buscara el id del tra y hara la conexion
+
+ver como hacer que se guarden en lugares diferentes los archivos que complementan la solicitud y que los numeros de formulario sean diferentes segun lugar
+
+
+https://parzibyte.me/blog/2021/09/09/solicitar-firma-manuscrita-javascript/
+
+
+https://www.youtube.com/watch?v=c4Q_Xnd_yUM

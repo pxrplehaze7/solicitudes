@@ -27,27 +27,32 @@ include("./config/conexion.php");
 
 	<div class="container" id="container">
 		<div class="form-container registrar-container">
-			<form action="#">
+			<form id="registroU" method="POST" autocomplete="off">
 				<h1>Registro</h1>
 				<div class="input">
 					<label for="r_nombre">Nombre Completo</label>
-					<input type="text" id="r_nombre" name="r_nombre" />
+					<input type="text" id="r_nombre" name="r_nombre" autocomplete="off" required/>
 				</div>
 				<div class="input">
 					<label for="r_rut">R.U.T</label>
-					<input type="text" id="r_rut" name="r_rut" />
+					<input type="text" id="r_rut" name="r_rut" autocomplete="off" maxlength="10" minlength="9"/>
+					<div id="rut-validationU"></div>
+
 				</div>
 				<div class="input">
 					<label for="r_correo">Correo Electrónico</label>
-					<input type="email" id="r_correo" name="r_correo" />
+					<input type="email" id="r_correo" name="r_correo" autocomplete="off" required/>
+					<div id="correo-validation"></div>
+
 				</div>
 				<div class="input">
 					<label for="r_contrasenna">Contraseña</label>
-					<input type="password" id="r_contrasenna" name="r_contrasenna" />
+					<input type="password" id="r_contrasenna" name="r_contrasenna" required />
 				</div>
+				<div id="error-rut-message" style="color: red;"></div>
 
 				<br>
-				<button>Continuar</button>
+				<button type="submit">Continuar</button>
 			</form>
 		</div>
 		<div class="form-container entrar-container">
