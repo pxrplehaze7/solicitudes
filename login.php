@@ -31,23 +31,23 @@ include("./config/conexion.php");
 				<h1>Registro</h1>
 				<div class="input">
 					<label for="r_nombre">Nombre Completo</label>
-					<input type="text" id="r_nombre" name="r_nombre" autocomplete="off" required/>
+					<input type="text" id="r_nombre" name="r_nombre" autocomplete="off" required />
 				</div>
 				<div class="input">
 					<label for="r_rut">R.U.T</label>
-					<input type="text" id="r_rut" name="r_rut" autocomplete="off" maxlength="10" minlength="9"/>
+					<input type="text" id="r_rut" name="r_rut" autocomplete="off" maxlength="10" minlength="9" />
 					<div id="rut-validationU"></div>
 
 				</div>
 				<div class="input">
 					<label for="r_correo">Correo Electrónico</label>
-					<input type="email" id="r_correo" name="r_correo" autocomplete="off" required/>
+					<input type="email" id="r_correo" name="r_correo"  required />
 					<div id="correo-validation"></div>
 
 				</div>
 				<div class="input">
 					<label for="r_contrasenna">Contraseña</label>
-					<input type="password" id="r_contrasenna" name="r_contrasenna" required />
+					<input type="password" id="r_contrasenna" name="r_contrasenna" required autocomplete="off" />
 				</div>
 				<div id="error-rut-message" style="color: red;"></div>
 
@@ -55,9 +55,17 @@ include("./config/conexion.php");
 				<button type="submit">Continuar</button>
 			</form>
 		</div>
-		<div class="form-container entrar-container">
-			<form action="#">
+		<!-- <div class="form-container entrar-container">
+			<form action="./backend/valida_login.php" method="POST">
 				<h1>Iniciar Sesión</h1>
+				<div class="contenedor-alerta">
+					<?php
+					if (isset($_SESSION['login_error']) && $_SESSION['login_error']) {
+						echo '<div class="alert alert-danger alerta-login" role="alert" >Correo Electrónico o contraseña incorrectos.<br>Por favor, intenta nuevamente.</div>';
+						$_SESSION['login_error'] = false;
+					}
+					?>
+				</div>
 				<div class="input">
 					<label for="iniciar_correo">Correo Electrónico</label>
 					<input type="email" id="iniciar_correo" name="iniciar_correo" />
@@ -69,7 +77,7 @@ include("./config/conexion.php");
 				<a href="#">¿Olvidaste tu contraseña?</a>
 				<button>Entrar</button>
 			</form>
-		</div>
+		</div> -->
 		<div class="overlay-container">
 			<div class="overlay">
 				<div class="capa-panel capa-izquierda">

@@ -36,10 +36,10 @@
         #canvas {
             border: 1px solid #ccc;
 
-    width: 400px;
-    height: 200px;
-    margin: 0;
-    padding: 0;
+            width: 400px;
+            height: 200px;
+            margin: 0;
+            padding: 0;
 
 
         }
@@ -48,9 +48,154 @@
 
 
 <body class="sb-nav-fixed">
-    <?php require("./components/navbar.php") ?>
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="home.php"><img src="./assets/img/logo.png" width="30px"></a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg></button>
+        <!-- Navbar Search-->
+        <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-end" action="" method="POST" id="searchForm">
+            <div class="input-group">
+                <input class="form-control" type="text" name="nameBuscaRut" id="nameBuscaRut" placeholder="19876543-K" pattern="^\d{7,8}-[kK\d]$" maxlength="10" minlength="9" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary btn-buscar" id="btnNavbarSearch" type="submit" disabled><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav me-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    </svg></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="editar_mi_perfil.php">Editar perfil</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="./controller/logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <div id="layoutSidenav">
-        <?php require("./components/sidebar.php") ?>
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Principal</div>
+                        <a class="nav-link" href="home.php">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            Inicio
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading">Solicitudes</div>
+
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseTrabajador" aria-expanded="false" aria-controls="collapseTrabajador">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Formularios
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse" id="collapseTrabajador" aria-labelledby="headingTrabajador" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionTrabajador">
+                                <a class="nav-link" href="./formularios/trabajador/teletrabajo.php">
+                                    Teletrabajo
+                                </a>
+
+                                <a class="nav-link" href="registro_honorario.php">
+                                    Permiso especial<BR>Ley TEA
+                                </a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link" href="registrar_usuario.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Usuario
+                        </a>
+
+
+
+
+                        <div class="sb-sidenav-menu-heading">Tablas</div>
+
+
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseListaTrabajadores" aria-expanded="false" aria-controls="collapseListaTrabajadores">
+                            <div class="sb-nav-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                </svg>
+                            </div>
+                            Lista de Trabajadores
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse" id="collapseListaTrabajadores" aria-labelledby="headingListaTrabajadores" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionListaTrabajadores">
+                                <a class="nav-link" href="lista_contrata.php">
+                                    A Contrata e Indefinidos
+                                </a>
+
+                                <a class="nav-link" href="lista_honorarios.php">
+                                    A honorarios
+                                </a>
+                            </nav>
+                        </div>
+
+
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseListaDecretos" aria-expanded="false" aria-controls="collapseListaDecretos">
+                            <div class="sb-nav-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                </svg>
+                            </div>
+                            Lista de Decretos
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse" id="collapseListaDecretos" aria-labelledby="headingListaDecretos" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionListaDecretos">
+                                <a class="nav-link" href="lista_dec_contrata.php">
+                                    A Contrata e Indefinidos
+                                </a>
+
+                                <a class="nav-link" href="lista_dec_honorario.php">
+                                    A honorarios
+                                </a>
+                            </nav>
+                        </div>
+
+
+
+
+                        <a class="nav-link" href="lista_usuarios.php">
+                            <div class="sb-nav-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                </svg>
+                            </div>
+                            Lista de Usuarios
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <div class="sb-sidenav-footer">
+
+                    <div class="small">Usuario conectado como:</div>
+
+                </div>
+            </nav>
+        </div>
         <div id="layoutSidenav_content">
             <div class="container-md">
 
@@ -62,7 +207,7 @@
 
                 <div class="container-solicitud">
                     <form>
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-md-6">
                                 <label for="minombre"><span style="color: #c40055;">*</span> Nombre</label>
                                 <input type="text" class="form-control" id="minombre" name="minombre" required>
@@ -85,17 +230,15 @@
                                 <label for="mipass"><span style="color: #c40055;">*</span> Contraseña</label>
                                 <input type="text" class="form-control" name="mipass" id="mipass" required>
                             </div>
-                        </div> -->
+                        </div>
 
                         <h3>Subir Firma</h3>
                         <p>Firmar a continuación:</p>
-    <canvas id="canvas"></canvas>
-    <br>
-    <button id="btnLimpiar">Limpiar</button>
-    <button id="btnDescargar">Descargar</button>
-    <button id="btnGenerarDocumento">Pasar a documento</button>
-    <br>
-    <a href="https://parzibyte.me/blog">By Parzibyte</a>
+                        <canvas id="canvas"></canvas>
+                        <br>
+                        <button id="btnLimpiar">Limpiar</button>
+                        <button id="btnDescargar">Descargar</button>
+                        <button id="btnGenerarDocumento">Pasar a documento</button>
                         <div class=" contenedor-firma">
 
                         </div>

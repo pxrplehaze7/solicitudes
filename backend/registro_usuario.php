@@ -8,10 +8,10 @@ $correo    = str_replace(" ", "", $correo);
 $correo    = strtolower($correo);
 $rol = 0;
 
-// $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+$hashedPass = password_hash($pass, PASSWORD_DEFAULT);
 
 $sqlUsuario = "INSERT INTO usuario_solicitudes (usuario_nombre,usuario_rut,usuario_correo,usuario_contrasenna,usuario_rol)
- VALUES ('$nombre','$rut','$correo','$pass',$rol)";
+ VALUES ('$nombre','$rut','$correo','$hashedPass',$rol)";
 
 
 if (mysqli_query($conn_sol, $sqlUsuario)) {

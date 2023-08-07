@@ -49,3 +49,25 @@
     box-shadow: inset 0 0 0 0.125em #00005c;
   }
   /* FIN RADIO TELETRABAJO */
+
+
+/* Centrar los elementos horizontalmente */
+.text-center {
+  text-align: center;
+}
+
+/* Alinear el label arriba del textarea */
+.container-txtarea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto; /* Para centrar el contenedor en la pantalla */
+}
+
+/* Establecer el ancho máximo del textarea */
+#text_s_elegido {
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box; /* Para incluir el padding y border en el ancho total */
+}

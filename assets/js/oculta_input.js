@@ -28,3 +28,18 @@ function mostrarOcultarInputs() {
         filasInput[6].style.display = 'table-row';
     }
 }
+
+function distribucion() {
+    var opcion1 = document.getElementById("opcion1");
+        var opcion2 = document.getElementById("opcion2");
+        var dhorario = document.getElementById("dhorario");
+        var text_s_elegido = document.getElementById("text_s_elegido");
+
+        if (opcion1.checked) {
+            dhorario.style.display = "block"; // Mostrar el div si se selecciona opcion1
+            text_s_elegido.value = ""; // Vaciar el contenido del textarea si se selecciona opcion1
+        } else if (opcion2.checked) {
+            dhorario.style.display = "none"; // Ocultar el div si se selecciona opcion2
+            text_s_elegido.value = "Total"; // Establecer el valor del textarea a "Total" si se selecciona opcion2
+        }
+    }

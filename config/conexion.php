@@ -7,9 +7,8 @@ $conn_sol = mysqli_connect('localhost', 'root', '', 'solicitudes');
 if ((!$conn) || (!$conn_sol)) {
     die("Conexión fallida: " . mysqli_connect_error());
 } else {
-    echo ("Conectado correctamente a ambas bases de datos");
+    // echo ("Conectado correctamente a ambas bases de datos");
 }
 ?>
 
 
-Realtek RTL8723DE 802.11b/g/n PCIe Adapter

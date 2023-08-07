@@ -146,11 +146,58 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
     `IDTL` INT NOT NULL, 
     `IDLugar` INT NOT NULL,
     `IDSit` INT NOT NULL,
-    `tele_num_formulario` INT (10) NOT NULL
+    `tele_num_formulario` INT (10) NOT NULL,
+    `tele_nomb_funcionario` VARCHAR (250) NOT NULL,
+    `tele_rut_funcionario` VARCHAR (10) NOT NULL,
+    `tele_jornada` VARCHAR (100) NOT NULL,
+    `tele_estamento` VARCHAR (150) NOT NULL,
+    `tele_periodo` VARCHAR (100) NOT NULL,
+    `tele_pdf_cnacimiento` VARCHAR (400) NULL,
+    `tele_pdf_djurada` VARCHAR (400) NULL,
+    `tele_pdf_sentencia_r` VARCHAR (400) NULL,
+    `tele_pdf_a_regular` VARCHAR (400) NULL,
+    `tele_pdf_establecim` VARCHAR (400) NULL,
+    `tele_pdf_cinscrip` VARCHAR (400) NULL,
+    `tele_pdf_copia_cinscrip` VARCHAR (400) NULL,
+    `tele_pdf_compat_funcion` VARCHAR (400) NULL,
+    `tele_sistema_elegido` VARCHAR (60) NOT NULL,
+    `tele_distribucion_jor` VARCHAR (1000) NULL,
+    `tele_firma_direct_cesfam` VARCHAR (400) NULL,
+    `tele_firma_subdirect_das` VARCHAR (400) NULL,
+    `tele_firma_ugestion` VARCHAR (400) NULL,
+    `tele_fecha_solicitud` DATE,
+    `tele_estado_solicitud` TINYINT (1) NOT NULL,
+    `tele_fecha_ingreso_das` DATE,
+    `tele_nomb_resuelve` VARCHAR (250) NULL,
+    `tele_fecha_resolucion` DATE,
+    `tele_observaciones` VARCHAR (1000) NULL,
+    PRIMARY KEY (IDTL),
+    FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`),
+    FOREIGN KEY (IDSit) REFERENCES `solicitudes`.tl_situacion(`IDSit`)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 
-
+CREATE TABLE `solicitudes`.`permiso_tea` (
+`IDPTEA` INT NOT NULL,
+`IDLugar` INT NOT NULL,
+`pt_nomb_funcionario` VARCHAR (250) NOT NULL,
+`pt_rut_funcionario` VARCHAR (10) NOT NULL,
+`pt_estamento` VARCHAR (150) NOT NULL,
+`pt_firma_solicitante` VARCHAR (400) NULL,
+`pt_nomb_ninno` VARCHAR (250) NOT NULL,
+`pt_colegio` VARCHAR (250) NOT NULL,
+`pt_fecha_permiso` DATE NULL,
+`pt_firma_jefatura_direct` VARCHAR (400) NULL,
+`pt_firma_direct_cesfam` VARCHAR (400) NULL,
+`pt_firma_subdirect_das` VARCHAR (400) NULL,
+`pt_firma_ugestion` VARCHAR (400) NULL,
+`pt_fecha_ingreso_das`DATE NULL,
+`pt_nomb_resuelve` VARCHAR (250) NULL,
+`pt_feha_resolucion` DATE NULL,
+`pt_observaciones` VARCHAR (1000) NULL,
+PRIMARY KEY (IDPTEA),
+FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
+) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 
 

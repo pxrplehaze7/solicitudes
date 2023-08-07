@@ -23,3 +23,15 @@ https://parzibyte.me/blog/2021/09/09/solicitar-firma-manuscrita-javascript/
 
 
 https://www.youtube.com/watch?v=c4Q_Xnd_yUM
+
+
+si el campo firma en la base de datos esta vacio, mostrar subir firma, sino , un boton que diga cambiar firma.
+
+
+ver como hacer que no hayan registros con num formulario corelativo duplicado, ademas que cada registro tiene su propia id, tambien tiene el numero del formulario.
+
+hacer como un sistema de mensajeria, donde se le envian los documentos a firma segun el rut, por ejemplo el de mal comportamiento donde se acusa a alguien, se le envia a esa persona para que firme.
+
+hacer que en el hombe, dependiendo el rol de la persona, le aparezca una card con la cantidad de formularios por firmar,
+
+preguntar quien es el primero que debe firmar los documentos o en que momento entra a la das

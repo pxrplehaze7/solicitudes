@@ -6,7 +6,6 @@ function LimpiaInputFile(inputId) {
   
   }
   
-  
 
 $(document).ready(function () {
   $("#registroU").on("submit", function (event) {
@@ -68,5 +67,53 @@ $(document).ready(function () {
         });
       }
     });
+  });
+});
+
+
+
+// INICIO FORMULARIO TELETRABAJO
+
+$("#form_teletrabajo").on("submit", function (event) {
+  event.preventDefault();
+  Swal.fire({
+    title: '¿Está seguro de continuar?',
+    showDenyButton: true,
+    showCancelButton: false,
+    allowOutsideClick: false,
+    confirmButtonText: 'Si',
+    confirmButtonColor: '#00c4a0',
+    denyButtonText: 'No',
+    denyButtonColor: '#ba0051',
+  }).then((result) => {
+    if (result.isDenied) {
+      return;
+    } else {
+      let formData = new FormData(this);
+
+      formData.append('rut', $('#rut').attr('value'));
+
+      $.ajax({
+        url: "../../backend/agregar/add_teletrabajo.php",
+        method: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+      })
+        .done(function (respuesta) {
+          $('body').append(respuesta);
+          console.log(respuesta)
+
+        })
+        .fail(function (respuesta) {
+          $('body').append(respuesta);
+          console.log(respuesta)
+
+        })
+        .always(function (respuesta) {
+          console.info(respuesta)
+        });
+    }
   });
 });

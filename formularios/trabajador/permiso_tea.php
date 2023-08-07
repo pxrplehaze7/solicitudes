@@ -124,7 +124,7 @@ include("../../config/conexion.php");
                             </div>
 
                             <br>
-                            <div class=" btn-conteiner">
+                            <div class=" btn-container">
                                 <button class="btn-content">
                                     <span class="btn-title">Enviar</span>
                                     <span class="icon-arrow">

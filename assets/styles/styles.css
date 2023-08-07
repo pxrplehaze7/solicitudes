@@ -11675,7 +11675,7 @@ body {
 
 
 /* INICIO BOTON DE ENVIAR */
-.btn-conteiner {
+.btn-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11899,6 +11899,7 @@ body {
     padding: 40px;
     margin-top: 60px;
     border-radius: 30px;
+    margin-bottom: 50px;
   }
 
   thead{
@@ -11942,8 +11943,3 @@ textarea{
   padding: 5px;
 }
 
-.contenedor-firma{
-  width: 200px;
-  height: 200px;
-  background-color: black; 
-}
