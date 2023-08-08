@@ -37,7 +37,7 @@ include("../../config/conexion.php");
                         <h3>Solicitud de Permiso Administrativo</h3>
                     </div>
                     <div class="col-xs-12 col-sm-2 col-md-2 d-flex justify-content-end d-none d-sm-block">
-                        <img src="../../assets/img/certificacion.jpg" width="100px">
+                        <img src="../../assets/img/certificacion.png" width="100px">
                     </div>
                 </div>
 

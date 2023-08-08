@@ -37,7 +37,7 @@ include("../../config/conexion.php");
                         <h1>Formulario De Teletrabajo</h1>
                     </div>
                     <div class="col-xs-12 col-sm-2 col-md-2 d-flex justify-content-end d-none d-sm-block">
-                        <img src="../../assets/img/certificacion.jpg" width="100px">
+                        <img src="../../assets/img/certificacion.png" width="100px">
                     </div>
                 </div>
 
@@ -48,12 +48,12 @@ include("../../config/conexion.php");
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="nombrefuncionario"><span style="color: #c40055;">*</span> Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario">
+                                <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario" value="nombre falso">
                                 <br>
                             </div>
                             <div class="col-md-6">
                                 <label for="rut"><span style="color: #c40055;">*</span> R.U.T</label>
-                                <input type="text" class="form-control" name="rut" id="rut">
+                                <input type="text" class="form-control" name="rut" id="rut" value="19334538-7">
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@ include("../../config/conexion.php");
                   
                             <div class=" col-md-6">
                                     <label for="jornada"><span style="color: #c40055;">*</span> Jornada</label>
-                                    <input type="text" class="form-control" id="jornada" name="jornada">
+                                    <input type="text" class="form-control" id="jornada" name="jornada" value="44 horas">
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@ include("../../config/conexion.php");
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="estamento"><span style="color: #c40055;">*</span> Estamento</label>
-                                <input type="text" class="form-control" id="estamento" name="estamento">
+                                <input type="text" class="form-control" id="estamento" name="estamento" value="cat c">
                                 <br>
                             </div>
                             <div class="col-md-6">
@@ -271,11 +271,11 @@ include("../../config/conexion.php");
                                 <div class="container-radio col-md-12 d-flex justify-content-center">
                                     <div class="opciones">
                                         <label for="opcion1">
-                                            <input type="radio" id="opcion1" name="radio" value="mixto" onchange="distribucion()">
+                                            <input type="radio" id="opcion1" name="radio_sistema" value="mixto" onchange="distribucion()">
                                             <span> Mixto (Parcial) con distribución de la jornada laboral</span>
                                         </label>
                                         <label for="opcion2">
-                                            <input type="radio" id="opcion2" name="radio" value="teletrabajo" onchange="distribucion()">
+                                            <input type="radio" id="opcion2" name="radio_sistema" value="teletrabajo" onchange="distribucion()">
                                             <span> Teletrabajo (Total)</span>
                                         </label>
                                     </div>

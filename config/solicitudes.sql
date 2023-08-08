@@ -116,28 +116,10 @@ CREATE TABLE `solicitudes`.`funcionarios_TEA` (
         `ftea_num_decreto` INT (5) NULL,
         `ftea_observaciones` VARCHAR (1000) NULL,
         PRIMARY KEY (IDFTEA),
+        UNIQUE (IDFTEA, IDLugar, ftea_num_formulario),
         FOREIGN KEY (IDUsu) REFERENCES `solicitudes`.usuario_solicitudes (`IDUsu`),
         FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
-
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -151,7 +133,8 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
     `tele_rut_funcionario` VARCHAR (10) NOT NULL,
     `tele_jornada` VARCHAR (100) NOT NULL,
     `tele_estamento` VARCHAR (150) NOT NULL,
-    `tele_periodo` VARCHAR (100) NOT NULL,
+    `tele_desde` DATE NOT NULL,
+    `tele_hasta` DATE NOT NULL,
     `tele_pdf_cnacimiento` VARCHAR (400) NULL,
     `tele_pdf_djurada` VARCHAR (400) NULL,
     `tele_pdf_sentencia_r` VARCHAR (400) NULL,
@@ -172,6 +155,7 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
     `tele_fecha_resolucion` DATE,
     `tele_observaciones` VARCHAR (1000) NULL,
     PRIMARY KEY (IDTL),
+    UNIQUE (IDTL, IDLugar, tele_num_formulario),
     FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`),
     FOREIGN KEY (IDSit) REFERENCES `solicitudes`.tl_situacion(`IDSit`)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
@@ -180,6 +164,7 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
 CREATE TABLE `solicitudes`.`permiso_tea` (
 `IDPTEA` INT NOT NULL,
 `IDLugar` INT NOT NULL,
+`pt_num_formulario` INT NOT NULL,
 `pt_nomb_funcionario` VARCHAR (250) NOT NULL,
 `pt_rut_funcionario` VARCHAR (10) NOT NULL,
 `pt_estamento` VARCHAR (150) NOT NULL,
@@ -196,6 +181,7 @@ CREATE TABLE `solicitudes`.`permiso_tea` (
 `pt_feha_resolucion` DATE NULL,
 `pt_observaciones` VARCHAR (1000) NULL,
 PRIMARY KEY (IDPTEA),
+UNIQUE (IDPTEA, IDLugar, pt_num_formulario),
 FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 

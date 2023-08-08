@@ -96,7 +96,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color:#12a09a;
+  background-color:#b8b8b8;
   /* -webkit-text-size-adjust: 100%; */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -11895,7 +11895,7 @@ body {
   /* FIN BOTON LIMPIA FILE TELETRABAJO */
 
   .container-md{
-    background-color: #fafafa;
+    background-color: #ffffff;
     padding: 40px;
     margin-top: 60px;
     border-radius: 30px;

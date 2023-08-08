@@ -37,7 +37,7 @@ include("../../config/conexion.php");
                         <h3>Formulario de Registro para Funcionarios que sean Padres y/o Cuidadores de Niños, Niñas y Adolescentes con Trastorno del Espectro Autista (TEA), conforme a la Ley 21.545</h3>
                     </div>
                     <div class="col-xs-12 col-sm-2 col-md-2 d-flex justify-content-end d-none d-sm-block">
-                        <img src="../../assets/img/certificacion.jpg" width="100px">
+                        <img src="../../assets/img/certificacion.png" width="100px">
                     </div>
                 </div>
 
