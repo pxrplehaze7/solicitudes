@@ -1,4 +1,20 @@
 function mostrarOcultarInputs() {
+
+    var nacimiento = document.getElementById("c_nacimiento_menor");
+    var declaracion = document.getElementById("dj_sin_ayuda");
+    var sentencia = document.getElementById("sentencia_judicial");
+    var aregular = document.getElementById("alumno_regular");
+    var establecim = document.getElementById("c_establecimiento");
+    var inscripcion = document.getElementById("inscripcion_RND");
+    var copia_inscripcion = document.getElementById("copia_certificado");
+
+
+    
+
+
+
+
+
     var valorSituacion = document.getElementById('situacion').value;
     
     // Obtén referencias a todas las filas de entrada
@@ -15,6 +31,11 @@ function mostrarOcultarInputs() {
         filasInput[0].style.display = 'table-row';
         filasInput[1].style.display = 'table-row';
         filasInput[2].style.display = 'table-row';
+        aregular.value = "";
+        establecim.value = "";
+        inscripcion.value = "";
+        copia_inscripcion.value = "";
+
     } else if (valorSituacion === "2") {
         // Muestra el segundo conjunto de entradas
         filasInput[0].style.display = 'table-row';
@@ -22,10 +43,18 @@ function mostrarOcultarInputs() {
         filasInput[2].style.display = 'table-row';
         filasInput[3].style.display = 'table-row';
         filasInput[4].style.display = 'table-row';
+        inscripcion.value = "";
+        copia_inscripcion.value = "";
+
     } else if (valorSituacion === "3") {
         // Muestra el tercer conjunto de entradas
         filasInput[5].style.display = 'table-row';
         filasInput[6].style.display = 'table-row';
+        nacimiento.value = "";
+        declaracion.value = "";
+        sentencia.value = "";
+        aregular.value = "";
+        establecim.value = "";
     }
 }
 
@@ -43,3 +72,20 @@ function distribucion() {
             text_s_elegido.value = "Total"; // Establecer el valor del textarea a "Total" si se selecciona opcion2
         }
     }
+
+
+
+
+    function contadorDistribucion(obj) {
+        var largoMaximo = 500;
+        var caracteres_escritos = obj.value.length;
+        var caracteres_restantes = largoMaximo - caracteres_escritos; 
+    
+        if (caracteres_escritos > largoMaximo) {
+            document.getElementById("charNum").innerHTML = '<span style="color: red;">' + caracteres_restantes + '/' + largoMaximo;
+        } else {
+            document.getElementById("charNum").innerHTML = caracteres_restantes + '/' + largoMaximo;
+        }
+    }
+    
+

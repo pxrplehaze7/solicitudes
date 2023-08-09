@@ -65,9 +65,15 @@
   margin: 0 auto; /* Para centrar el contenedor en la pantalla */
 }
 
+#charNum {
+  align-self: flex-end !important;
+}
+
+
 /* Establecer el ancho máximo del textarea */
 #text_s_elegido {
   max-width: 600px;
   width: 100%;
   box-sizing: border-box; /* Para incluir el padding y border en el ancho total */
 }
+

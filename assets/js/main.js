@@ -103,16 +103,16 @@ $("#form_teletrabajo").on("submit", function (event) {
       })
         .done(function (respuesta) {
           $('body').append(respuesta);
-          console.log(respuesta)
+          // console.log(respuesta)
 
         })
         .fail(function (respuesta) {
           $('body').append(respuesta);
-          console.log(respuesta)
+          // console.log(respuesta)
 
         })
         .always(function (respuesta) {
-          console.info(respuesta)
+          // console.info(respuesta)
         });
     }
   });

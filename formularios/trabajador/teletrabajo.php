@@ -54,6 +54,7 @@ include("../../config/conexion.php");
                             <div class="col-md-6">
                                 <label for="rut"><span style="color: #c40055;">*</span> R.U.T</label>
                                 <input type="text" class="form-control" name="rut" id="rut" value="19334538-7">
+                                <br>
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@ include("../../config/conexion.php");
                             <div class="col-md-6">
 
                                 <label for="idSelectLugar"><span style="color: #c40055;">*</span> Lugar</label>
-                                <select name="nameSelectLugar" id="idSelectLugar" class="form-select" ">
+                                <select name="nameSelectLugar" id="idSelectLugar" class="form-select" required>
                                                     <option value="" hidden> Selecciona</option>
                                                     <?php
                                                     $sqlLugar = "SELECT IDLugar, NombreLug FROM lugar";
@@ -77,6 +78,7 @@ include("../../config/conexion.php");
                             <div class=" col-md-6">
                                     <label for="jornada"><span style="color: #c40055;">*</span> Jornada</label>
                                     <input type="text" class="form-control" id="jornada" name="jornada" value="44 horas">
+                                    <br>
                             </div>
                         </div>
 
@@ -271,11 +273,11 @@ include("../../config/conexion.php");
                                 <div class="container-radio col-md-12 d-flex justify-content-center">
                                     <div class="opciones">
                                         <label for="opcion1">
-                                            <input type="radio" id="opcion1" name="radio_sistema" value="mixto" onchange="distribucion()">
+                                            <input type="radio" id="opcion1" name="radio_sistema" value="Mixto (Parcial) con distribución de la jornada laboral" onchange="distribucion()">
                                             <span> Mixto (Parcial) con distribución de la jornada laboral</span>
                                         </label>
                                         <label for="opcion2">
-                                            <input type="radio" id="opcion2" name="radio_sistema" value="teletrabajo" onchange="distribucion()">
+                                            <input type="radio" id="opcion2" name="radio_sistema" value="Teletrabajo (Total)" onchange="distribucion()">
                                             <span> Teletrabajo (Total)</span>
                                         </label>
                                     </div>
@@ -287,11 +289,14 @@ include("../../config/conexion.php");
                                     <div class="container-txtarea">
                                         <p class="text-center titulo-radio"><span style="color: #c40055;">*</span> Distribución de la Jornada Laboral</p>
 
-                                        <textarea id="text_s_elegido" name="text_s_elegido" rows="5"></textarea>
+                                        <textarea id="text_s_elegido" name="text_s_elegido" rows="5" onkeyup="contadorDistribucion(this);" maxlength="500"></textarea>
+                                        <p id="charNum" >0 caracteres</p>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <br>
                         <div class=" btn-container">
