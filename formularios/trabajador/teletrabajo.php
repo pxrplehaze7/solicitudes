@@ -45,6 +45,7 @@ include("../../config/conexion.php");
                 <div class="container-solicitud">
                     <form id="form_teletrabajo" enctype="multipart/form-data" method="POST">
 
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="nombrefuncionario"><span style="color: #c40055;">*</span> Nombre Completo</label>
@@ -63,22 +64,22 @@ include("../../config/conexion.php");
 
                                 <label for="idSelectLugar"><span style="color: #c40055;">*</span> Lugar</label>
                                 <select name="nameSelectLugar" id="idSelectLugar" class="form-select" required>
-                                                    <option value="" hidden> Selecciona</option>
-                                                    <?php
-                                                    $sqlLugar = "SELECT IDLugar, NombreLug FROM lugar";
-                                                    $resultadoLugar = mysqli_query($conn, $sqlLugar);
-                                                    while ($fila = mysqli_fetch_assoc($resultadoLugar)) {
-                                                        echo "<option value='" . $fila['IDLugar'] . "'>" . $fila['NombreLug'] . "</option>";
-                                                    }
-                                                    ?> 
+                                    <option value="" hidden> Selecciona</option>
+                                    <?php
+                                    $sqlLugar = "SELECT IDLugar, NombreLug FROM lugar";
+                                    $resultadoLugar = mysqli_query($conn, $sqlLugar);
+                                    while ($fila = mysqli_fetch_assoc($resultadoLugar)) {
+                                        echo "<option value='" . $fila['IDLugar'] . "'>" . $fila['NombreLug'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                                 <br>
                             </div>
-                  
+
                             <div class=" col-md-6">
-                                    <label for="jornada"><span style="color: #c40055;">*</span> Jornada</label>
-                                    <input type="text" class="form-control" id="jornada" name="jornada" value="44 horas">
-                                    <br>
+                                <label for="jornada"><span style="color: #c40055;">*</span> Jornada</label>
+                                <input type="text" class="form-control" id="jornada" name="jornada" value="44 horas">
+                                <br>
                             </div>
                         </div>
 
@@ -106,10 +107,10 @@ include("../../config/conexion.php");
                                     ?>
                                 </select>
                             </div>
+
                         </div>
 
-
-
+                    
                         <div class="row">
                             <p class="text-center titulo-radio"><span style="color: #c40055;">*</span> Periodo</p>
                             <div class="col-6">
@@ -273,7 +274,7 @@ include("../../config/conexion.php");
                                 <div class="container-radio col-md-12 d-flex justify-content-center">
                                     <div class="opciones">
                                         <label for="opcion1">
-                                            <input type="radio" id="opcion1" name="radio_sistema" value="Mixto (Parcial) con distribución de la jornada laboral" onchange="distribucion()">
+                                            <input type="radio" id="opcion1" name="radio_sistema" value="Mixto (Parcial)" onchange="distribucion()">
                                             <span> Mixto (Parcial) con distribución de la jornada laboral</span>
                                         </label>
                                         <label for="opcion2">
@@ -290,7 +291,7 @@ include("../../config/conexion.php");
                                         <p class="text-center titulo-radio"><span style="color: #c40055;">*</span> Distribución de la Jornada Laboral</p>
 
                                         <textarea id="text_s_elegido" name="text_s_elegido" rows="5" onkeyup="contadorDistribucion(this);" maxlength="500"></textarea>
-                                        <p id="charNum" >0 caracteres</p>
+                                        <p id="charNum">500/500</p>
 
                                     </div>
                                 </div>

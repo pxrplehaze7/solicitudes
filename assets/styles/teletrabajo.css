@@ -77,3 +77,56 @@
   box-sizing: border-box; /* Para incluir el padding y border en el ancho total */
 }
 
+
+.contenedor-botones {
+  display: flex;
+  justify-content: center;
+  padding-right: 0;
+}
+
+
+
+.boton-descargar {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  width: 130px !important;
+  background-color: #00c4a0 !important;
+  color: black !important;
+  border-color: #00c4a0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+.boton-ver {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  width: 130px !important;
+  background-color: #00c4a0 !important;
+  color: black !important;
+  border-color: #00c4a0 !important;
+}
+
+.boton-ver:hover,
+.boton-descargar:hover {
+  background-color: #02a385 !important ;
+  color: black !important;
+  border-color: #02a385 !important ;
+}
+
+
+.boton-ver:active,
+.boton-descargar:active {
+  background-color: #039479 !important ;
+  color: black !important;
+  border-color: #02a385 !important ;
+}
+
+.pendiente:disabled {
+  background-color: #f3ab00 !important;
+  border-color: #f3ab00 !important;
+  color: black !important;
+  cursor: default !important;
+  opacity: 1 !important; /* Restaura la opacidad normal */
+}
