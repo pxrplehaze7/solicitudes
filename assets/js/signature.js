@@ -2,6 +2,7 @@ const COLOR_PINCEL = "black";
 const GROSOR = 3;
 let haComenzadoDibujo = false;
 let xAnterior, yAnterior, xActual, yActual;
+const $btnDescargar = document.getElementById("btnDescargar");
 
 
 const $canvas = document.getElementById("canvas");
@@ -57,3 +58,24 @@ $canvas.addEventListener("mousemove", (evento) => {
         haComenzadoDibujo = false;
     });
 });
+$btnDescargar.onclick = () => {
+    const imageData = $canvas.toDataURL("image/png");
+
+    fetch('guardar_imagen.php', {
+        method: 'POST',
+        body: JSON.stringify({
+            image: imageData,
+            rut: "12345678-9"  // Aquí deberías poner el RUT de la persona
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+};

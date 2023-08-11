@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+include("./config/conexion.php");
+session_start();
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+if(isset($_SESSION['correo'])){
+$email=$_SESSION['correo'];
+$nombre=$_SESSION['nombre'];
+$rutcito=$_SESSION['rut'];
+$rol=$_SESSION['rol'];
+?>
 
-<body>
 
-</body>
-
-</html><?php
-        include("./config/conexion.php");
-
-        ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -210,12 +205,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="minombre"><span style="color: #c40055;">*</span> Nombre</label>
-                                <input type="text" class="form-control" id="minombre" name="minombre" required>
+                                <input type="text" class="form-control" id="minombre" name="minombre" value="<?php echo $nombre ?>" required>
                                 <br>
                             </div>
                             <div class="col-md-6">
                                 <label for="mirut"><span style="color: #c40055;">*</span> R.U.T</label>
-                                <input type="text" class="form-control" name="mirut" id="mirut" required>
+                                <input type="text" class="form-control" name="mirut" id="mirut" value="<?php echo $rutcito ?>" required>
                             </div>
                         </div>
 
@@ -223,7 +218,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="micorreo"><span style="color: #c40055;">*</span> Correo Electrónico</label>
-                                <input type="text" class="form-control" id="micorreo" name="micorreo" required>
+                                <input type="text" class="form-control" id="micorreo" name="micorreo" value="<?php echo $email ?>" required>
                                 <br>
                             </div>
                             <div class="col-md-6">
@@ -283,3 +278,8 @@
 </body>
 
 </html>
+
+<?php } else {
+     header('Location: login.php');
+     exit();
+    }?>

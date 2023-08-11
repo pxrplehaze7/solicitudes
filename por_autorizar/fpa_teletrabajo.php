@@ -127,9 +127,23 @@ if (isset($_GET['idtl'])) {
                                     </tr>
                                     <tr>
                                         <td class="align-middle">Periodo</td>
-                                        <td class="align-middle"><?php
-                                                                    echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?> - <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?>
-
+                                        <td class="align-middle"><?php echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?> - <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?></td>
+                                    </tr>
+                                    <tr>
+                                       <td class="align-middle">
+                                        Sistema elegido
+                                       </td> 
+                                       <td class="align-middle">
+                                       <?php echo $formulario_tl['tele_sistema_elegido'] ?>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="align-middle">
+                                        Distribución de la jornada laboral
+                                       </td> 
+                                       <td class="align-middle">
+                                       <?php echo $formulario_tl['tele_distribucion_jor'] ?>
+                                       </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -138,7 +152,7 @@ if (isset($_GET['idtl'])) {
 
 
 
-                         
+
 
 
 
@@ -148,8 +162,8 @@ if (isset($_GET['idtl'])) {
                                 <table id="tabla_documentos" class="table table-striped table-bordered table-centered" style="width:100%" data-search="false">
                                     <thead>
                                         <tr>
-                                            <th class="col-6">Nombre del documento</th>
-                                            <th class="col-6">PDF</th>
+                                            <th class="" width="90%">Nombre del documento</th>
+                                            <th class="">PDF</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -276,15 +290,16 @@ if (isset($_GET['idtl'])) {
                                             <tr>
                                                 <td class="align-middle">Certificado de inscripción en el Registro Nacional de la Discapacidad de la persona bajo su cuidado.</td>
                                                 <td class="align-middle">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" name="inscripcion_RND" id="inscripcion_RND" accept=".pdf">
-                                                        <button class="buttonDelete" type="button" onclick="LimpiaInputFile('inscripcion_RND')">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="bell">
-                                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-
+                                                <?php if (!empty($formulario_tl['tele_pdf_cinscrip'])) { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_cinscrip']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                        </div>
+                                                    <?php } ?>
                                                 </td>
 
                                             </tr>
@@ -296,78 +311,44 @@ if (isset($_GET['idtl'])) {
                                             <tr>
                                                 <td class="align-middle">Copia del certificado, credencial o inscripción de discapacidad en el referido registro, emitido por la autoridad competente, en los términos de los artículos 13 y 17, ambos de la citada ley, correspondientes a la persona que tengan a su cuidado. O podrá acreditarse la discapacidad de esta última a través de la calidad de asignatario de pensión de invalidez.</td>
                                                 <td class="align-middle">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" name="copia_certificado" id="copia_certificado" accept=".pdf">
-
-                                                        <button class="buttonDelete" type="button" onclick="LimpiaInputFile('copia_certificado')">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="bell">
-                                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-
-
+                                                <?php if (!empty($formulario_tl['tele_pdf_copia_cinscrip'])) { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_copia_cinscrip']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_copia_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                        </div>
+                                                    <?php } ?>
                                                 </td>
 
                                             </tr>
                                         <?php } ?>
 
+                                        <tr>
+                                                <td class="align-middle"><strong>Compatibilidad de la Función: </strong>Certificado de jefe directo que indica que modalidad es compatible con teletrabajo (debe contener lugar, sistema elegido, así como la modalidad de control y supervisión de las funciones).</td>
+                                                <td class="align-middle">  <?php if (!empty($formulario_tl['tele_pdf_compat_funcion'])) { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_compat_funcion']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_compat_funcion'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="contenedor-botones">
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                        </div>
+                                                    <?php } ?></td>
+
+
+                                            </tr>
+
                                     </tbody>
                                 </table>
-                                <br>
-                                <table id="tabla_doc" class="table table-striped table-bordered table-centered" style="width:100%" data-search="false">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-6">Compatibilidad de la Función</th>
-                                            <th class="col-6">PDF</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-middle">Certificado de jefe directo que indica que modalidad es compatible con teletrabajo (debe contener lugar, sistema elegido, así como la modalidad de control y supervisión de las funciones).</td>
-                                            <td class="align-middle">
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control" name="modalidad_compatible" id="modalidad_compatible" accept=".pdf">
-                                                    <button class="buttonDelete" type="button" onclick="LimpiaInputFile('modalidad_compatible')">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="bell">
-                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                               
                                 <br>
 
 
-                                <div class="row">
-                                    <p class="text-center titulo-radio"> Sistema Elegido</p>
-                                    <div class="container-radio col-md-12 d-flex justify-content-center">
-                                        <div class="opciones">
-                                            <label for="opcion1">
-                                                <input type="radio" id="opcion1" name="radio_sistema" value="Mixto (Parcial) con distribución de la jornada laboral" onchange="distribucion()">
-                                                <span> Mixto (Parcial) con distribución de la jornada laboral</span>
-                                            </label>
-                                            <label for="opcion2">
-                                                <input type="radio" id="opcion2" name="radio_sistema" value="Teletrabajo (Total)" onchange="distribucion()">
-                                                <span> Teletrabajo (Total)</span>
-                                            </label>
-                                        </div>
-                                        <br>
-                                    </div>
-                                    <br>
-                                    <div id="dhorario">
-
-                                        <div class="container-txtarea">
-                                            <p class="text-center titulo-radio"> Distribución de la Jornada Laboral</p>
-
-                                            <textarea id="text_s_elegido" name="text_s_elegido" rows="5" onkeyup="contadorDistribucion(this);" maxlength="500"></textarea>
-                                            <p id="charNum">500/500</p>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
 

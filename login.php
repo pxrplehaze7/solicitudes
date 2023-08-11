@@ -55,7 +55,7 @@ include("./config/conexion.php");
 				<button type="submit">Continuar</button>
 			</form>
 		</div>
-		<!-- <div class="form-container entrar-container">
+		<div class="form-container entrar-container">
 			<form action="./backend/valida_login.php" method="POST">
 				<h1>Iniciar Sesión</h1>
 				<div class="contenedor-alerta">

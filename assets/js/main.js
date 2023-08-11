@@ -43,8 +43,7 @@ $(document).ready(function () {
               $("#r_rut").val("");
               $("#r_correo").val("");
               $("#r_contrasenna").val("");
-
-            });
+              window.location = location.href;            });
           } else {
             Swal.fire({
               icon: 'error',

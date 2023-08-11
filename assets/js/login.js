@@ -14,13 +14,6 @@ signInButton.addEventListener("click", () => {
 
 
 
-
-
-
-
-
-
-
 //VALIDA EL RUT DE USUARIO
 //PERMITE SOLO EL INGRESO DE NUMEROS, k O k y -
 if(document.getElementById("r_rut")){
@@ -69,7 +62,9 @@ if(document.getElementById("r_rut")){
 			type: 'POST',
 			data: { rut: rutUsuario },
 			success: function (response) {
-			  if (response === 'VALIDO') {
+				console.log('Response:', response);  // Agregar esto para ver exactamente qué estás obteniendo como respuesta
+
+			  if (response.trim() === 'VALIDO') {
 				$('#rut-validationU').html('<div class="alert alert-success" role="alert">El RUT es válido y no está registrado</div>');
 				setTimeout(function () {
 				  $('#rut-validationU').html('');
@@ -99,32 +94,35 @@ if(document.getElementById("r_rut")){
   
   
 	function validarCorreo(correoElectronico) {
-	  $.ajax({
-		url: './backend/validaciones/check_correo.php',
-		type: 'POST',
-		data: { correo: correoElectronico },
-  
-		success: function(response) {
-		  if (response === 'VALIDO') {
-        console.log("esvalido");
 
-			$('#correo-validation').html('<div class="alert alert-success" role="alert">El correo es válido y no está registrado</div>');
-			setTimeout(function() {
-			  $('#correo-validation').html('');
-			}, 2000);
-		  } else {
-        console.log("sin mensaje");
-
-			$('#correo-validation').html(response);
-			setTimeout(function() {
-			  $('#correo-validation').html('');
-			}, 2000);
-			$('#r_correo').val(''); 
-  
-		  }
+		// Verifica si el correoElectronico está vacío o solo tiene espacios en blanco
+		if (!correoElectronico.trim()) {
+			return; // Salir de la función si el correoElectronico está vacío
 		}
-	  });
+	
+		$.ajax({
+			url: './backend/validaciones/check_correo.php',
+			type: 'POST',
+			data: { correo: correoElectronico },
+			success: function(response) {
+				if (response.trim() === 'VALIDO') {
+					console.log("esvalido");
+					$('#correo-validation').html('<div class="alert alert-success" role="alert">El correo es válido y no está registrado</div>');
+					setTimeout(function() {
+						$('#correo-validation').html('');
+					}, 2000);
+				} else {
+					console.log("sin mensaje");
+					$('#correo-validation').html(response);
+					setTimeout(function() {
+						$('#correo-validation').html('');
+					}, 2000);
+					$('#r_correo').val(''); 
+				}
+			}
+		});
 	}
+	
   
   
   });
