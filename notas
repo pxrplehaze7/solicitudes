@@ -28,7 +28,6 @@ https://www.youtube.com/watch?v=c4Q_Xnd_yUM
 si el campo firma en la base de datos esta vacio, mostrar subir firma, sino , un boton que diga cambiar firma.
 
 
-ver como hacer que no hayan registros con num formulario corelativo duplicado, ademas que cada registro tiene su propia id, tambien tiene el numero del formulario.
 
 hacer como un sistema de mensajeria, donde se le envian los documentos a firma segun el rut, por ejemplo el de mal comportamiento donde se acusa a alguien, se le envia a esa persona para que firme.
 
@@ -40,3 +39,7 @@ en home hacer cards con la cantidad de todos los formularios que estan pendiente
 
 
 al mostrar la lista de pendientes por firmar, para los directores o subdirectores, que se pueda visualizar segun el cesfam al que pertenece
+
+login no es responsivo, arreglar
+
+agregar validaciones a todos los formularios

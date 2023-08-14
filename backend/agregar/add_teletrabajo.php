@@ -63,10 +63,7 @@ if (isset($_POST['rut'])) {
     $pdf_mod_compat = (!empty($_FILES['modalidad_compatible']['name'])) ? uniqid() . '.pdf' : '';
 
 
-
-
-  
-
+    
     
     $dompdf = new Dompdf();
 

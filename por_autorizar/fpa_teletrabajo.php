@@ -1,20 +1,26 @@
 <?php
 include(".././config/conexion.php");
 
-// session_start();
-// if (!isset($_SESSION['rol'])) {
-//     header('Location: index.php');
-//     exit();
-// } corregir esta sesion
+// SI LA PERSONA NO ESTA ADMIN, NO PUEDE VER
+session_start();
+if (!isset($_SESSION['rol'])==1)
 
-if (isset($_GET['idtl'])) {
+// deberia ser 0 pero por mientras pongo 1 para verlo
+{
+    header('Location: ../index.php');
+    exit();
+} 
+
+
+
+// SI NO HAY RESULTADOS DE LA CONSULTA, REDIRIGE A INICIO
 
     $idtl = $_GET['idtl'];
     $query = "SELECT * FROM solicitudes.teletrabajo WHERE IDTL = '$idtl'";
     $res = mysqli_query($conn_sol, $query);
     if (mysqli_num_rows($res) == 1) {
         $formulario_tl = mysqli_fetch_assoc($res);
-    }
+    
 
 
 
@@ -41,9 +47,156 @@ if (isset($_GET['idtl'])) {
 
 
     <body class="sb-nav-fixed">
-        <!-- <?php require(".././components/navbar.php") ?> -->
+
+
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="home.php"><img src="../../assets/img/logo.png" width="30px"> DAS Chiguayante</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg></button>
+            <!-- Navbar Search-->
+            <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-end" action="" method="POST" id="searchForm">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="nameBuscaRut" id="nameBuscaRut" placeholder="19876543-K" pattern="^\d{7,8}-[kK\d]$" maxlength="10" minlength="9" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary btn-buscar" id="btnNavbarSearch" type="submit" disabled><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav me-3">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="editar_mi_perfil.php">Editar perfil</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="./controller/logout.php">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
         <div id="layoutSidenav">
-            <!-- <?php require(".././components/sidebar.php") ?> -->
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Principal</div>
+                            <a class="nav-link" href="home.php">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                Inicio
+                            </a>
+
+                            <div class="sb-sidenav-menu-heading">Registro</div>
+
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseTrabajador" aria-expanded="false" aria-controls="collapseTrabajador">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Trabajador
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapseTrabajador" aria-labelledby="headingTrabajador" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionTrabajador">
+                                    <a class="nav-link" href="registro_contrata.php">
+                                        A Contrata e Indefinidos
+                                    </a>
+
+                                    <a class="nav-link" href="registro_honorario.php">
+                                        A honorarios
+                                    </a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link" href="registrar_usuario.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Usuario
+                            </a>
+
+
+
+
+                            <div class="sb-sidenav-menu-heading">Tablas</div>
+
+
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseListaTrabajadores" aria-expanded="false" aria-controls="collapseListaTrabajadores">
+                                <div class="sb-nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                    </svg>
+                                </div>
+                                Lista de Trabajadores
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapseListaTrabajadores" aria-labelledby="headingListaTrabajadores" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionListaTrabajadores">
+                                    <a class="nav-link" href="lista_contrata.php">
+                                        A Contrata e Indefinidos
+                                    </a>
+
+                                    <a class="nav-link" href="lista_honorarios.php">
+                                        A honorarios
+                                    </a>
+                                </nav>
+                            </div>
+
+
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseListaDecretos" aria-expanded="false" aria-controls="collapseListaDecretos">
+                                <div class="sb-nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                    </svg>
+                                </div>
+                                Lista de Decretos
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapseListaDecretos" aria-labelledby="headingListaDecretos" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionListaDecretos">
+                                    <a class="nav-link" href="lista_dec_contrata.php">
+                                        A Contrata e Indefinidos
+                                    </a>
+
+                                    <a class="nav-link" href="lista_dec_honorario.php">
+                                        A honorarios
+                                    </a>
+                                </nav>
+                            </div>
+
+
+
+
+                            <a class="nav-link" href="lista_usuarios.php">
+                                <div class="sb-nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                    </svg>
+                                </div>
+                                Lista de Usuarios
+                            </a>
+
+                        </div>
+                    </div>
+
+
+                    <div class="sb-sidenav-footer">
+
+                        <div class="small">Usuario conectado como:</div>
+
+                    </div>
+                </nav>
+            </div>
             <div id="layoutSidenav_content">
                 <div class="container-md">
                     <div class="row titulo text-center">
@@ -130,20 +283,20 @@ if (isset($_GET['idtl'])) {
                                         <td class="align-middle"><?php echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?> - <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?></td>
                                     </tr>
                                     <tr>
-                                       <td class="align-middle">
-                                        Sistema elegido
-                                       </td> 
-                                       <td class="align-middle">
-                                       <?php echo $formulario_tl['tele_sistema_elegido'] ?>
-                                       </td>
+                                        <td class="align-middle">
+                                            Sistema elegido
+                                        </td>
+                                        <td class="align-middle">
+                                            <?php echo $formulario_tl['tele_sistema_elegido'] ?>
+                                        </td>
                                     </tr>
                                     <tr>
-                                       <td class="align-middle">
-                                        Distribución de la jornada laboral
-                                       </td> 
-                                       <td class="align-middle">
-                                       <?php echo $formulario_tl['tele_distribucion_jor'] ?>
-                                       </td>
+                                        <td class="align-middle">
+                                            Distribución de la jornada laboral
+                                        </td>
+                                        <td class="align-middle">
+                                            <?php echo $formulario_tl['tele_distribucion_jor'] ?>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,7 +310,7 @@ if (isset($_GET['idtl'])) {
 
 
                             <div class="documentos">
-                                <h6>Documentos</h6>
+                                <h6>Documentos Adjuntos</h6>
 
                                 <table id="tabla_documentos" class="table table-striped table-bordered table-centered" style="width:100%" data-search="false">
                                     <thead>
@@ -180,11 +333,14 @@ if (isset($_GET['idtl'])) {
                                                     <?php if (!empty($formulario_tl['tele_pdf_cnacimiento'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_cnacimiento']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_cnacimiento'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_cnacimiento'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
 
@@ -201,11 +357,14 @@ if (isset($_GET['idtl'])) {
                                                     <?php if (!empty($formulario_tl['tele_pdf_djurada'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_djurada']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_djurada'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_djurada'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
 
@@ -224,11 +383,14 @@ if (isset($_GET['idtl'])) {
                                                     <?php if (!empty($formulario_tl['tele_pdf_sentencia_r'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_sentencia_r']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_sentencia_r'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_sentencia_r'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
 
@@ -247,11 +409,14 @@ if (isset($_GET['idtl'])) {
                                                     <?php if (!empty($formulario_tl['tele_pdf_a_regular'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_a_regular']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_a_regular'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_a_regular'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
 
@@ -270,11 +435,14 @@ if (isset($_GET['idtl'])) {
                                                     <?php if (!empty($formulario_tl['tele_pdf_establecim'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_establecim']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_establecim'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_establecim'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
 
@@ -290,14 +458,17 @@ if (isset($_GET['idtl'])) {
                                             <tr>
                                                 <td class="align-middle">Certificado de inscripción en el Registro Nacional de la Discapacidad de la persona bajo su cuidado.</td>
                                                 <td class="align-middle">
-                                                <?php if (!empty($formulario_tl['tele_pdf_cinscrip'])) { ?>
+                                                    <?php if (!empty($formulario_tl['tele_pdf_cinscrip'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_cinscrip']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
                                                 </td>
@@ -311,14 +482,17 @@ if (isset($_GET['idtl'])) {
                                             <tr>
                                                 <td class="align-middle">Copia del certificado, credencial o inscripción de discapacidad en el referido registro, emitido por la autoridad competente, en los términos de los artículos 13 y 17, ambos de la citada ley, correspondientes a la persona que tengan a su cuidado. O podrá acreditarse la discapacidad de esta última a través de la calidad de asignatario de pensión de invalidez.</td>
                                                 <td class="align-middle">
-                                                <?php if (!empty($formulario_tl['tele_pdf_copia_cinscrip'])) { ?>
+                                                    <?php if (!empty($formulario_tl['tele_pdf_copia_cinscrip'])) { ?>
                                                         <div class="contenedor-botones">
                                                             <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_copia_cinscrip']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_copia_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
+                                                            <a href="<?php echo $formulario_tl['tele_pdf_copia_cinscrip'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                </svg></a>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
+                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
                                                         </div>
                                                     <?php } ?>
                                                 </td>
@@ -327,28 +501,32 @@ if (isset($_GET['idtl'])) {
                                         <?php } ?>
 
                                         <tr>
-                                                <td class="align-middle"><strong>Compatibilidad de la Función: </strong>Certificado de jefe directo que indica que modalidad es compatible con teletrabajo (debe contener lugar, sistema elegido, así como la modalidad de control y supervisión de las funciones).</td>
-                                                <td class="align-middle">  <?php if (!empty($formulario_tl['tele_pdf_compat_funcion'])) { ?>
-                                                        <div class="contenedor-botones">
-                                                            <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_compat_funcion']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
-                                                            <a href="<?php echo $formulario_tl['tele_pdf_compat_funcion'] ?>" download class="btn btn-primary boton-descargar w-100"><i class="fa-sharp fa-solid fa-download"></i></a>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="contenedor-botones">
-                                                            <button disabled class="btn btn-warning pendiente w-100"><i class="fa-sharp fa-solid fa-clock"></i></button>
-                                                        </div>
-                                                    <?php } ?></td>
+                                            <td class="align-middle"><strong>Compatibilidad de la Función: </strong>Certificado de jefe directo que indica que modalidad es compatible con teletrabajo (debe contener lugar, sistema elegido, así como la modalidad de control y supervisión de las funciones).</td>
+                                            <td class="align-middle"> <?php if (!empty($formulario_tl['tele_pdf_compat_funcion'])) { ?>
+                                                    <div class="contenedor-botones">
+                                                        <button type="button" class="btn btn-primary boton-ver w-100" onclick="window.open('<?php echo $formulario_tl['tele_pdf_compat_funcion']; ?>', '_blank')"><i class="fa-solid fa-expand"></i></button>
+                                                        <a href="<?php echo $formulario_tl['tele_pdf_compat_funcion'] ?>" download class="btn btn-primary boton-descargar w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                            </svg></a>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="contenedor-botones">
+                                                        <button disabled class="btn btn-warning pendiente w-100"><i class="fa-solid fa-clock"></i></button>
+                                                    </div>
+                                                <?php } ?>
+                                            </td>
 
 
-                                            </tr>
+                                        </tr>
 
                                     </tbody>
                                 </table>
-                               
+
                                 <br>
 
 
-                                
+
                             </div>
 
 
@@ -397,6 +575,6 @@ if (isset($_GET['idtl'])) {
 
 <?php
 } else {
-    // header('Location: home.php');
+    header('Location: ../home.php');
 }
 ?>

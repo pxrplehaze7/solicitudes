@@ -82,19 +82,8 @@ CREATE TABLE `solicitudes`.`usuario_solicitudes`(
 
 
 
-
-
-
-
-
-
-
-
-
-
 CREATE TABLE `solicitudes`.`funcionarios_TEA` (
     `IDFTEA` INT NOT NULL AUTO_INCREMENT,
-    `IDUsu` INT NOT NULL,
     `IDLugar` INT NOT NULL,
     `ftea_num_formulario` INT (10) NOT NULL,
     `ftea_nomb_funcionario` VARCHAR (250) NOT NULL,
@@ -117,7 +106,6 @@ CREATE TABLE `solicitudes`.`funcionarios_TEA` (
         `ftea_observaciones` VARCHAR (1000) NULL,
         PRIMARY KEY (IDFTEA),
         UNIQUE (IDFTEA, IDLugar, ftea_num_formulario),
-        FOREIGN KEY (IDUsu) REFERENCES `solicitudes`.usuario_solicitudes (`IDUsu`),
         FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
@@ -185,15 +173,6 @@ PRIMARY KEY (IDPTEA),
 UNIQUE (IDPTEA, IDLugar, pt_num_formulario),
 FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
-
-
-
-
-
-
-
-
-
 
 
 
