@@ -227,16 +227,7 @@ $rol=$_SESSION['rol'];
                             </div>
                         </div>
 
-                        <h3>Subir Firma</h3>
-                        <p>Firmar a continuación:</p>
-                        <canvas id="canvas"></canvas>
-                        <br>
-                        <button id="btnLimpiar">Limpiar</button>
-                        <button id="btnDescargar">Descargar</button>
-                        <button id="btnGenerarDocumento">Pasar a documento</button>
-                        <div class=" contenedor-firma">
 
-                        </div>
 
                         <br>
                         <div class=" btn-conteiner">
@@ -253,6 +244,21 @@ $rol=$_SESSION['rol'];
                                 </span>
                             </button>
                         </div>
+                    </form>
+                    <form method="post" enctype="multipart/form-data">
+                    <input type="text" class="form-control" name="ruthidden" id="ruthidden" value="<?php echo $rutcito ?>" required>
+
+                    <h3>Subir Firma</h3>
+                        <p>Firmar a continuación:</p>
+                        <canvas id="canvas"></canvas>
+                        <br>
+                        <button id="btnLimpiar">Limpiar</button>
+                        <button id="btnDescargar">Descargar</button>
+                        <button id="btnGenerarDocumento">Pasar a documento</button>
+                        <div class=" contenedor-firma">
+
+                        </div>
+
                     </form>
                 </div>
             </div>

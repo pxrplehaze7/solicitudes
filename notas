@@ -1,4 +1,5 @@
 los admin deben tener la opcion de llenar su propia solicitud y autorizar.
+esto se puede ver en el menu 
 la fecha de solicitud no se ingresa, se guarda en la base de datos.
 al guardar el estado de solicitud se guarda como pendiente de aprobacion,
 en fecha de ingreso a das se guarda una vez alguna persona haya firmado.
@@ -31,7 +32,7 @@ si el campo firma en la base de datos esta vacio, mostrar subir firma, sino , un
 
 hacer como un sistema de mensajeria, donde se le envian los documentos a firma segun el rut, por ejemplo el de mal comportamiento donde se acusa a alguien, se le envia a esa persona para que firme.
 
-hacer que en el hombe, dependiendo el rol de la persona, le aparezca una card con la cantidad de formularios por firmar,
+hacer que en el nombre, dependiendo el rol de la persona, le aparezca una card con la cantidad de formularios por firmar,
 
 preguntar quien es el primero que debe firmar los documentos o en que momento entra a la das
 
@@ -39,7 +40,18 @@ en home hacer cards con la cantidad de todos los formularios que estan pendiente
 
 
 al mostrar la lista de pendientes por firmar, para los directores o subdirectores, que se pueda visualizar segun el cesfam al que pertenece
+seria algo asi como:
+-formulario teletrabajo,
+mostrar if campo firmadas de ese form esta vacio y si el estado sigue siendo pendiente
+ver como hacer que eso aplique para todas las firmas del formulario 
 
 login no es responsivo, arreglar
 
 agregar validaciones a todos los formularios
+
+mostrar en el menu que aparezca el listado de formularios y al presionar envia a la pagina donde se veran los nombres de los formularios a llenarprimero ver como hacer quee la firma manuscrita se guarde como imagen en una carpeta junto con las otras firmas en imagen pero con un nombre especifico y asi es ruta se guarda en la base de datos para poder firmar. 
+despues hacer que si presiono un boton de firmar, la imagen se incruste como un <?php value de la firma ?> y esa firma al final de poner mas firmas, se vea en el pdf
+
+la idea es que en el formulario, cuando alguien presione firmar, se pegue la ruta de la imagen
+
+VER COMO HACER QUE CUANDO SE VUELVA A GUARDAR UNA FIRMA, LA IMAGEN ANTERIOR SE ELIMINE

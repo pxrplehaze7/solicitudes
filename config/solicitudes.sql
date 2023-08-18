@@ -137,6 +137,8 @@ CREATE TABLE `solicitudes`.`teletrabajo` (
     `tele_firma_direct_cesfam` VARCHAR (400) NULL,
     `tele_firma_subdirect_das` VARCHAR (400) NULL,
     `tele_firma_ugestion` VARCHAR (400) NULL,
+    `tele_firma_solicitante` VARCHAR (400) NULL,
+
     `tele_fecha_solicitud` DATE,
     `tele_estado_solicitud` TINYINT (1) NOT NULL,
     `tele_fecha_ingreso_das` DATE,

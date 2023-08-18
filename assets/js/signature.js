@@ -2,7 +2,7 @@ const COLOR_PINCEL = "black";
 const GROSOR = 3;
 let haComenzadoDibujo = false;
 let xAnterior, yAnterior, xActual, yActual;
-const $btnDescargar = document.getElementById("btnDescargar");
+const $btnGuardarFirma = document.getElementById("btnDescargar");
 
 
 const $canvas = document.getElementById("canvas");
@@ -58,14 +58,30 @@ $canvas.addEventListener("mousemove", (evento) => {
         haComenzadoDibujo = false;
     });
 });
-$btnDescargar.onclick = () => {
-    const imageData = $canvas.toDataURL("image/png");
 
-    fetch('guardar_imagen.php', {
+
+
+
+
+
+
+
+
+
+
+
+
+// GUARDA LA FIRMA COMO IMAGEN
+$btnGuardarFirma.onclick = (e) => {
+    e.preventDefault();
+    const imageData = $canvas.toDataURL("image/png");
+    const rut = document.getElementById("ruthidden").value;
+
+    fetch('./backend/agregar/guardar_firma.php', {
         method: 'POST',
         body: JSON.stringify({
             image: imageData,
-            rut: "12345678-9"  // Aquí deberías poner el RUT de la persona
+            rut: rut
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -73,9 +89,31 @@ $btnDescargar.onclick = () => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.message);
+        if (data.status === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: data.message
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.message
+            });
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un problema al intentar guardar la imagen. Inténtalo de nuevo.'
+        });
     });
+    
 };
+
+
+
+

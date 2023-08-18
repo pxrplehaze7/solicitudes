@@ -124,9 +124,10 @@
 }
 
 .pendiente:disabled {
-  background-color: #f3ab00 !important;
-  border-color: #f3ab00 !important;
+  background-color: yellow !important;
+  border-color: yellow !important;
   color: black !important;
   cursor: default !important;
   opacity: 1 !important; /* Restaura la opacidad normal */
+  border-radius: 30px;
 }

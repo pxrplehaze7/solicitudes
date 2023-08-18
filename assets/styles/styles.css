@@ -660,7 +660,7 @@ progress {
   .container-md,
   .container-sm,
   .container {
-    max-width: 720px;
+    max-width: 870px;
   }
 }
 @media (min-width: 1000px) {
@@ -8034,9 +8034,7 @@ fieldset:disabled .btn {
   margin-top: 1.5rem !important;
 }
 
-.mt-5 {
-  /* margin-top: 3rem !important; */
-}
+
 
 .mt-auto {
   margin-top: auto !important;
@@ -11943,3 +11941,31 @@ textarea{
   padding: 5px;
 }
 
+.contenedor-firma{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.firma-solicitante{
+  border:1px solid red; 
+  align-content:center; 
+  width:250px;
+  text-align: center;
+}
+
+.firma-pendiente{
+  width: 250px;
+  height: 125px;
+  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 143px;
+  margin-bottom: 10px;
+}
+
+.reloj-p{
+  font-size: 50px;
+}

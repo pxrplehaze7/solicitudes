@@ -1,5 +1,8 @@
 <?php
 include("../../config/conexion.php");
+session_start();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -49,12 +52,12 @@ include("../../config/conexion.php");
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="nombrefuncionario"><span style="color: #c40055;">*</span> Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario" value="nombre falso">
+                                <input type="text" class="form-control" id="nombrefuncionario" name="nombrefuncionario" value="<?php echo $_SESSION['nombre']?>" readonly>
                                 <br>
                             </div>
                             <div class="col-md-6">
                                 <label for="rut"><span style="color: #c40055;">*</span> R.U.T</label>
-                                <input type="text" class="form-control" name="rut" id="rut" value="19334538-7">
+                                <input type="text" class="form-control" name="rut" id="rut" value="<?php echo $_SESSION['rut']?>" readonly>
                                 <br>
                             </div>
                         </div>
@@ -297,6 +300,7 @@ include("../../config/conexion.php");
                                 </div>
                             </div>
                         </div>
+                        <input type="text" name="firmapersona" id="firmapersona" value="<?php echo $_SESSION['firma']?>" hidden>
 
 
                         <br>

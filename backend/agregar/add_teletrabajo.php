@@ -43,6 +43,7 @@ if (isset($_POST['rut'])) {
     $hasta = $_POST['hasta'];
     $sistema = $_POST['radio_sistema'];
     $distribucion = $_POST['text_s_elegido'];
+    $firma = $_POST['firmapersona'];
     $fecha_solicitud = new DateTime('now', new DateTimeZone('America/Santiago'));
     $fecha_solicitudf = $fecha_solicitud->format('Y-m-d');
     // $fecha_solicitudf = $fecha_solicitud->format('d-m-Y');
@@ -148,9 +149,9 @@ if (isset($_POST['rut'])) {
     }
 
     $sql = "INSERT INTO solicitudes.teletrabajo (IDTL,IDLugar,IDSit,tele_num_formulario,tele_nomb_funcionario,tele_rut_funcionario,tele_jornada,tele_estamento,tele_desde,tele_hasta,tele_estado_solicitud,tele_fecha_solicitud,
-    tele_sistema_elegido,tele_distribucion_jor,tele_pdf_cnacimiento,tele_pdf_djurada,tele_pdf_sentencia_r,tele_pdf_a_regular,tele_pdf_establecim,tele_pdf_cinscrip,tele_pdf_copia_cinscrip,tele_pdf_compat_funcion,tele_pdf_solicitud
+    tele_sistema_elegido,tele_distribucion_jor,tele_pdf_cnacimiento,tele_pdf_djurada,tele_pdf_sentencia_r,tele_pdf_a_regular,tele_pdf_establecim,tele_pdf_cinscrip,tele_pdf_copia_cinscrip,tele_pdf_compat_funcion,tele_pdf_solicitud,tele_firma_solicitante
     )
-VALUES ($id_form,$lugar,$situacion,$num_formulario,'$nombre','$rut','$jornada','$estamento','$desde','$hasta',$estado,'$fecha_solicitudf','$sistema','$distribucion','$ruta_nacimientoFINAL','$ruta_juradaFINAL','$ruta_sentenciaFINAL','$ruta_aregularFINAL','$ruta_establecimientoFINAL','$ruta_inscripcionFINAL','$ruta_copia_inscripcionFINAL','$ruta_mod_compatFINAL','$filenameURL')";
+VALUES ($id_form,$lugar,$situacion,$num_formulario,'$nombre','$rut','$jornada','$estamento','$desde','$hasta',$estado,'$fecha_solicitudf','$sistema','$distribucion','$ruta_nacimientoFINAL','$ruta_juradaFINAL','$ruta_sentenciaFINAL','$ruta_aregularFINAL','$ruta_establecimientoFINAL','$ruta_inscripcionFINAL','$ruta_copia_inscripcionFINAL','$ruta_mod_compatFINAL','$filenameURL','$firma')";
 
     try {
         $resultado_sql = mysqli_query($conn_sol, $sql);

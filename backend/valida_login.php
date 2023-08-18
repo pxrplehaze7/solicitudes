@@ -27,7 +27,7 @@ if (isset($_POST['iniciar_correo']) && isset($_POST['iniciar_contrasenna'])) {
 
             header('Location: ../index.php');
 
-            if (!empty($row['usuario_firma'])) {
+            if (!empty($_SESSION['firma'])) {
                 header('Location: ../index.php');
             } else {
                 header('Location: ../perfil.php');
