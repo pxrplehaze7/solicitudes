@@ -1,8 +1,11 @@
 <?php
 include("../../config/conexion.php");
 session_start();
+if (!isset($_SESSION['rol'])){
+    header('Location: ../../login.php');
+} else {
 
-
+    
 
 ?>
 <!DOCTYPE html>
@@ -345,3 +348,5 @@ session_start();
 </body>
 
 </html>
+
+<?php } ?>

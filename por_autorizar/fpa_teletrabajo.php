@@ -525,51 +525,95 @@ if (mysqli_num_rows($res) == 1) {
                                 <p>Firma Solicitante</p>
                             </div>
                         </div>
-
                         <br>
-                        <form id="form_teletrabajo" enctype="multipart/form-data" method="POST">
+
+                        <form action=".././backend/agregar/firmas_encargados.php" method="POST">
+                        <input name="idform" value="<?php echo $idtl ?>">
 
                             <div class="row">
-
-                            <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
                                     <div class="d-flex flex-column align-items-center conten">
                                         <?php if (isset($formulario_tl['tele_firma_direct_cesfam']) && !empty($formulario_tl['tele_firma_direct_cesfam'])) { ?>
                                             <img src="<?php echo $formulario_tl['tele_firma_direct_cesfam'] ?>" width="250px">
                                         <?php } else { ?>
-                                            <div class="firma-pendiente"><i class="fa-regular fa-hourglass-half reloj-p"></i></div>
+                                            <div class="row pendiente-todo">
+                                                <div class="icono-pendiente row">
+                                                    <div class="row icono-boton">
+                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="firma_director_cesfam" value="<?php echo $_SESSION['firma'] ?>">
+
+                                                <button class="btn-firmar">
+                                                    Firmar
+                                                    <div class="arrow-wrapper">
+                                                        <div class="arrow"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
                                         <?php } ?>
-                                        <p>Firma Director(a) <br>CESFAM</p>
+                                        <p class="firmas-jefes">Firma Director(a) <br>CESFAM</p>
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">                                    <div class="d-flex flex-column align-items-center conten">
+
+                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                    <div class="d-flex flex-column align-items-center conten">
                                         <?php if (isset($formulario_tl['tele_firma_subdirect_das']) && !empty($formulario_tl['tele_firma_subdirect_das'])) { ?>
                                             <img src="<?php echo $formulario_tl['tele_firma_subdirect_das'] ?>" width="250px">
                                         <?php } else { ?>
-                                            <div class="firma-pendiente"><i class="fa-regular fa-hourglass-half reloj-p"></i></div>
+                                            <div class="row pendiente-todo">
+                                                <div class="icono-pendiente row">
+                                                    <div class="row icono-boton">
+                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="firma_subdirector" value="<?php echo $_SESSION['firma'] ?>">
+
+                                                <button class="btn-firmar">
+                                                    Firmar
+                                                    <div class="arrow-wrapper">
+                                                        <div class="arrow"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
                                         <?php } ?>
-                                        <p>Firma Subdirector<br>Administrativo DAS</p>
+                                        <p class="firmas-jefes">Firma Subdirector<br>Administrativo DAS</p>
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">                                    <div class="d-flex flex-column align-items-center conten">
+
+
+                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                    <div class="d-flex flex-column align-items-center conten">
                                         <?php if (isset($formulario_tl['tele_firma_ugestion']) && !empty($formulario_tl['tele_firma_ugestion'])) { ?>
                                             <img src="<?php echo $formulario_tl['tele_firma_ugestion'] ?>" width="250px">
                                         <?php } else { ?>
-                                            <div class="firma-pendiente"><i class="fa-regular fa-hourglass-half reloj-p"></i></div>
+                                            <div class="row pendiente-todo">
+                                                <div class="icono-pendiente row">
+                                                    <div class="row icono-boton">
+                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="firma_ugestion" value="<?php echo $_SESSION['firma'] ?>">
+
+                                                <button class="btn-firmar" type="submit">
+                                                    Firmar
+                                                    <div class="arrow-wrapper">
+                                                        <div class="arrow"></div>
+                                                    </div>
+                                                </button>
+
+                                            </div>
                                         <?php } ?>
-                                        <p>Firma Jefe Unidad de Gestión <br>y Desarrollo de Personas</p>
+                                        <p class="firmas-jefes">Firma Jefe Unidad de Gestión <br>y Desarrollo de Personas</p>
                                     </div>
                                 </div>
+
 
                             </div>
                         </form>
                     </div>
-
-
-
-
-
 
 
                     <br>
