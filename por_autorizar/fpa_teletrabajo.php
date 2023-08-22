@@ -7,7 +7,7 @@ if (!isset($_SESSION['rol']) == 1)
 
 // deberia ser 0 pero por mientras pongo 1 para verlo
 {
-    header('Location: ../index.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -316,8 +316,6 @@ if (mysqli_num_rows($res) == 1) {
                                             <td class="align-middle">Certificado de nacimiento del menor.</td>
 
 
-
-
                                             <td class="align-middle">
 
                                                 <?php if (!empty($formulario_tl['tele_pdf_cnacimiento'])) { ?>
@@ -441,8 +439,6 @@ if (mysqli_num_rows($res) == 1) {
                                         </tr>
                                     <?php } ?>
 
-
-
                                     <?php if ($formulario_tl['IDSit'] == 3) { ?>
 
                                         <tr>
@@ -527,22 +523,22 @@ if (mysqli_num_rows($res) == 1) {
                         </div>
                         <br>
 
-                        <form action=".././backend/agregar/firmas_encargados.php" method="POST">
-                        <input name="idform" value="<?php echo $idtl ?>">
 
-                            <div class="row">
-                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
-                                    <div class="d-flex flex-column align-items-center conten">
-                                        <?php if (isset($formulario_tl['tele_firma_direct_cesfam']) && !empty($formulario_tl['tele_firma_direct_cesfam'])) { ?>
-                                            <img src="<?php echo $formulario_tl['tele_firma_direct_cesfam'] ?>" width="250px">
-                                        <?php } else { ?>
-                                            <div class="row pendiente-todo">
-                                                <div class="icono-pendiente row">
-                                                    <div class="row icono-boton">
-                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
-                                                    </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                <div class="d-flex flex-column align-items-center conten">
+                                    <?php if (isset($formulario_tl['tele_firma_direct_cesfam']) && !empty($formulario_tl['tele_firma_direct_cesfam'])) { ?>
+                                        <img src="<?php echo $formulario_tl['tele_firma_direct_cesfam'] ?>" width="250px">
+                                    <?php } else { ?>
+                                        <div class="row pendiente-todo">
+                                            <div class="icono-pendiente row">
+                                                <div class="row icono-boton">
+                                                    <i class="fa-regular fa-hourglass-half reloj-p"></i>
                                                 </div>
-                                                <input type="text" name="firma_director_cesfam" value="<?php echo $_SESSION['firma'] ?>">
+                                            </div>
+                                            <form action=".././backend/agregar/firmas_encargados.php" method="POST" class="d-flex justify-content-center">
+                                                <input name="idform" value="<?php echo $idtl ?>" hidden>
+                                                <input type="text" name="firma_director_cesfam" value="<?php echo $_SESSION['firma'] ?>" hidden>
 
                                                 <button class="btn-firmar">
                                                     Firmar
@@ -550,25 +546,29 @@ if (mysqli_num_rows($res) == 1) {
                                                         <div class="arrow"></div>
                                                     </div>
                                                 </button>
-                                            </div>
-                                        <?php } ?>
-                                        <p class="firmas-jefes">Firma Director(a) <br>CESFAM</p>
-                                    </div>
+                                            </form>
+                                        </div>
+                                    <?php } ?>
+                                    <p class="firmas-jefes">Firma Director(a) <br>CESFAM</p>
                                 </div>
+                            </div>
 
 
-                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
-                                    <div class="d-flex flex-column align-items-center conten">
-                                        <?php if (isset($formulario_tl['tele_firma_subdirect_das']) && !empty($formulario_tl['tele_firma_subdirect_das'])) { ?>
-                                            <img src="<?php echo $formulario_tl['tele_firma_subdirect_das'] ?>" width="250px">
-                                        <?php } else { ?>
-                                            <div class="row pendiente-todo">
-                                                <div class="icono-pendiente row">
-                                                    <div class="row icono-boton">
-                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
-                                                    </div>
+                            <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                <div class="d-flex flex-column align-items-center conten">
+                                    <?php if (isset($formulario_tl['tele_firma_subdirect_das']) && !empty($formulario_tl['tele_firma_subdirect_das'])) { ?>
+                                        <img src="<?php echo $formulario_tl['tele_firma_subdirect_das'] ?>" width="250px">
+                                    <?php } else { ?>
+                                        <div class="row pendiente-todo">
+                                            <div class="icono-pendiente row">
+                                                <div class="row icono-boton">
+                                                    <i class="fa-regular fa-hourglass-half reloj-p"></i>
                                                 </div>
-                                                <input type="text" name="firma_subdirector" value="<?php echo $_SESSION['firma'] ?>">
+                                            </div>
+
+                                            <form action=".././backend/agregar/firmas_encargados.php" method="POST" class="d-flex justify-content-center">
+                                                <input name="idform" value="<?php echo $idtl ?>" hidden>
+                                                <input type="text" name="firma_subdirector" value="<?php echo $_SESSION['firma'] ?>" hidden>
 
                                                 <button class="btn-firmar">
                                                     Firmar
@@ -576,26 +576,29 @@ if (mysqli_num_rows($res) == 1) {
                                                         <div class="arrow"></div>
                                                     </div>
                                                 </button>
-                                            </div>
-                                        <?php } ?>
-                                        <p class="firmas-jefes">Firma Subdirector<br>Administrativo DAS</p>
-                                    </div>
+                                            </form>
+                                        </div>
+                                    <?php } ?>
+                                    <p class="firmas-jefes">Firma Subdirector<br>Administrativo DAS</p>
                                 </div>
+                            </div>
 
 
 
-                                <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
-                                    <div class="d-flex flex-column align-items-center conten">
-                                        <?php if (isset($formulario_tl['tele_firma_ugestion']) && !empty($formulario_tl['tele_firma_ugestion'])) { ?>
-                                            <img src="<?php echo $formulario_tl['tele_firma_ugestion'] ?>" width="250px">
-                                        <?php } else { ?>
-                                            <div class="row pendiente-todo">
-                                                <div class="icono-pendiente row">
-                                                    <div class="row icono-boton">
-                                                        <i class="fa-regular fa-hourglass-half reloj-p"></i>
-                                                    </div>
+                            <div class="col-md-4 col-sm-6 d-flex justify-content-center text-center mb-3">
+                                <div class="d-flex flex-column align-items-center conten">
+                                    <?php if (isset($formulario_tl['tele_firma_ugestion']) && !empty($formulario_tl['tele_firma_ugestion'])) { ?>
+                                        <img src="<?php echo $formulario_tl['tele_firma_ugestion'] ?>" width="250px">
+                                    <?php } else { ?>
+                                        <div class="row pendiente-todo">
+                                            <div class="icono-pendiente row">
+                                                <div class="row icono-boton">
+                                                    <i class="fa-regular fa-hourglass-half reloj-p"></i>
                                                 </div>
-                                                <input type="text" name="firma_ugestion" value="<?php echo $_SESSION['firma'] ?>">
+                                            </div>
+                                            <form action=".././backend/agregar/firmas_encargados.php" method="POST" class="d-flex justify-content-center">
+                                                <input name="idform" value="<?php echo $idtl ?>" hidden>
+                                                <input type="text" name="firma_ugestion" value="<?php echo $_SESSION['firma'] ?>" hidden>
 
                                                 <button class="btn-firmar" type="submit">
                                                     Firmar
@@ -603,16 +606,63 @@ if (mysqli_num_rows($res) == 1) {
                                                         <div class="arrow"></div>
                                                     </div>
                                                 </button>
+                                            </form>
+                                        </div>
+                                    <?php } ?>
+                                    <p class="firmas-jefes">Firma Jefe Unidad de Gestión <br>y Desarrollo de Personas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btnResolver">Resolver</button>
 
+
+                        <div id="resolverDiv" class="resolver" style="display: none;">
+
+                            <form>
+                            <h3>Resolución</h3>
+
+                                <div class="container_aprobacion">
+                                    <div class="radio-tile-group">
+                                        <div class="input-container_aprobacion">
+                                            <input id="aprueba" class="radio-button" type="radio" name="radio_resolucion">
+                                            <div class="radio-tile">
+                                                <div class="icon aprueba-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                                    </svg>
+                                                </div>
+                                                <label for="aprueba" class="radio-tile-label">Aprobado</label>
                                             </div>
-                                        <?php } ?>
-                                        <p class="firmas-jefes">Firma Jefe Unidad de Gestión <br>y Desarrollo de Personas</p>
+                                        </div>
+                                        <div class="input-container_aprobacion">
+                                            <input id="rechaza" class="radio-button" type="radio" name="radio_resolucion">
+                                            <div class="radio-tile">
+                                                <div class="icon rechaza-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                    </svg>
+                                                </div>
+                                                <label for="rechaza" class="radio-tile-label">Rechazado</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+<h3>Observaciones</h3>
+                                <textarea rows="5" cols="50"></textarea>
 
-                            </div>
-                        </form>
+
+                            </form>
+
+
+
+
+
+                        </div>
+
+
+
+
                     </div>
 
 

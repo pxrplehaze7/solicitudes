@@ -2,68 +2,58 @@
 require("../../config/conexion.php");
 
 if (!empty($_POST['idform'])) {
-    $numform = $_POST['idform'];
+    $idform = $_POST['idform'];
 
+    $fechaActual = new DateTime('now', new DateTimeZone('America/Santiago'));
+    $fechaActual = $fechaActual->format('Y-m-d');
 
-    if (!empty($_POST['firma_das'])) {
+    if (isset($_POST['firma_director_cesfam'])) {
+        $firma_director_c = $_POST['firma_director_cesfam'];
+        $sql = "UPDATE solicitudes.teletrabajo SET tele_firma_direct_cesfam = '$firma_director_c' WHERE IDTL = $idform";
+    } else if (isset($_POST['firma_subdirector'])) {
+        $firma_subd_das = $_POST['firma_subdirector'];
+        $ingreso = "SELECT tele_fecha_ingreso_das FROM solicitudes.teletrabajo WHERE IDTL = $idform";
+        $result = mysqli_query($conn_sol, $ingreso);
+
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $tele_fecha_ingreso_das = $row['tele_fecha_ingreso_das'];
+        }
+        if (empty($tele_fecha_ingreso_das)) {
+            $tele_fecha_ingreso_das = $fechaActual;
+        }
+        $sql = "UPDATE solicitudes.teletrabajo SET tele_firma_subdirect_das = '$firma_subd_das', tele_fecha_ingreso_das = '$tele_fecha_ingreso_das'  WHERE IDTL = $idform";
+    } else if (isset($_POST['firma_ugestion'])) {
         $firma_ugestion = $_POST['firma_ugestion'];
-    } else {
-        $firma_ugestion = NULL;
-    }
+        $ingreso = "SELECT tele_fecha_ingreso_das FROM solicitudes.teletrabajo WHERE IDTL = $idform";
+        $result = mysqli_query($conn_sol, $ingreso);
 
-    if (!empty($_POST['firma_director_cesfam'])) {
-        $firma_direct_cesfam = $_POST['firma_director_cesfam'];
-    } else {
-        $firma_direct_cesfam = NULL;
-    }
-
-    if (!empty($_POST['firma_subdirector'])) {
-        $firma_subdirector_das = $_POST['firma_subdirector'];
-    } else {
-        $firma_subdirector_das = NULL;
-    }
-
-
-    $sqlf = "UPDATE solicitudes.teletrabajo SET tele_firma_ugestion = '$firma_ugestion',
-    tele_firma_subdirect_das = '$firma_subdirector_das',
-    tele_firma_direct_cesfam = '$firma_direct_cesfam'
-     WHERE IDTL = $numform";
-    try {
-        $resultado_sql = mysqli_query($conn_sol, $sqlf);
-        if (!$resultado_sql) {
-            throw new Exception(mysqli_error($conn_sol));
-        } else {
-            echo "<script>
-    Swal.fire({
-      icon: 'success',
-      title: 'FIRMA ACTUALIZADA Correctamente',
-      showConfirmButton: true,
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#009CFD'
-    }).then(() => {
-    });
-  </script>";
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $tele_fecha_ingreso_das = $row['tele_fecha_ingreso_das'];
         }
-    } catch (Exception $e) {
-        if (file_exists($ruta . $nlug . $num_formulario)) {
-            $files = glob($ruta . $nlug . $num_formulario . '/*');
-            foreach ($files as $file) {
-                if (is_file($file)) {
-                    unlink($file);
-                }
-            }
-            rmdir($ruta . $nlug . $num_formulario);
+        if (empty($tele_fecha_ingreso_das)) {
+            $tele_fecha_ingreso_das = $fechaActual;
         }
-        echo "<script>
-  Swal.fire({
-    icon: 'error',
-    title: 'Error al guardar los archivos: " . $e->getMessage() . "',
-    showConfirmButton: true,
-    confirmButtonText: 'Aceptar',
-    confirmButtonColor: '#009CFD'
-  });
-</script>";
+        $sql = "UPDATE solicitudes.teletrabajo SET tele_firma_ugestion = '$firma_ugestion', tele_fecha_ingreso_das = '$tele_fecha_ingreso_das' WHERE IDTL = $idform";
+    }
+
+
+
+
+
+    if (mysqli_query($conn_sol, $sql)) {
+        $response = array(
+            'success' => true,
+            'message' => 'Firmado exitosamente.'
+        );
+        echo json_encode($response);
+    } else {
+        $response = array(
+            'success' => false,
+            'message' => 'Error al firmar: ' . mysqli_error($conn_sol)
+        );
+        echo json_encode($response);
     }
 }
-
 mysqli_close($conn_sol);

@@ -178,7 +178,9 @@ FOREIGN KEY (IDLugar) REFERENCES `das`.lugar (`IDLugar`)
 
 
 
-CREATE TABLE `solicitudes`.`cpp_motivo` (
+CREATE TABLE `solicitudes`.`Rol` (
+    `IDROL` INT NOT NULL,
+
 ) ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 CREATE TABLE `solicitudes`.`cpp_motivo` (
@@ -187,3 +189,11 @@ CREATE TABLE `solicitudes`.`cpp_motivo` (
 
 
 
+
+
+
+
+
+Firma Director(a) CESFAM
+Firma Subdirector Administrativo DAS
+Firma Jefe Unidad de Gestión y Desarrollo de Personas

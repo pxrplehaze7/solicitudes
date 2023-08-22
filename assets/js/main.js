@@ -155,3 +155,85 @@ $("#form_cuidatea").on("submit", function (event) {
     }
   });
 });
+
+
+$(".btn-firmar").on("click", function(event) {
+  event.preventDefault(); // Previene el envío del formulario
+
+  Swal.fire({
+      title: '¿Está seguro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          enviarFirma($(this).closest("form")); // Si confirma, envía el formulario
+      }
+  });
+});
+
+function enviarFirma($form) {
+  $.ajax({
+      type: $form.attr("method"),
+      url: $form.attr("action"),
+      data: $form.serialize(),
+      dataType: 'json',  // Especifica que esperas una respuesta en formato JSON
+      success: function(response) {
+          if (response.success) {
+              Swal.fire({
+                  icon: 'success',
+                  title: response.message,
+                  confirmButtonText: 'Aceptar',
+                  confirmButtonColor: '#009CFD'
+              }).then(() => {
+                  location.reload(); // Recarga la página
+              });
+          } else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Error al firmar',
+                  text: response.message,
+                  confirmButtonText: 'Aceptar',
+                  confirmButtonColor: '#009CFD'
+              });
+          }
+      },
+      error: function(error) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Error al firmar',
+              text: 'Ocurrió un error inesperado.',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#009CFD'
+          });
+      }
+  });
+}
+document.getElementById("btnResolver").addEventListener("click", function(){
+  Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas resolver?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, resolver',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          var resolverDiv = document.getElementById("resolverDiv");
+
+          if (resolverDiv.style.display === "none") {
+              resolverDiv.style.display = "block";
+          } else {
+              resolverDiv.style.display = "none";
+          }
+
+          // Hace que el botón desaparezca
+          this.style.display = "none"; 
+      }
+  });
+});

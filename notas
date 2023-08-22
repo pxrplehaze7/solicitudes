@@ -1,19 +1,10 @@
 los admin deben tener la opcion de llenar su propia solicitud y autorizar.
 esto se puede ver en el menu 
-la fecha de solicitud no se ingresa, se guarda en la base de datos.
-al guardar el estado de solicitud se guarda como pendiente de aprobacion,
 en fecha de ingreso a das se guarda una vez alguna persona haya firmado.
 
 una vez alguien haya aprobado o rechazado, se guarda esa fecha y el nombre de quien hizo esto
-podria haber una tabla con las solicitudes pendientes
 
-datos de usuario
 
-Nombre completo
-rut
-imagen de firma
-
-todos se registran igual y un superdmin les da permisos de director para la firma de documentos
 
 en los formularios que se guardan en lacarpeta del trabajador, en el formulaario la llave foranea es idtra, entonces con el rut buscara el id del tra y hara la conexion
 
@@ -27,7 +18,6 @@ https://www.youtube.com/watch?v=c4Q_Xnd_yUM
 
 
 si el campo firma en la base de datos esta vacio, mostrar subir firma, sino , un boton que diga cambiar firma.
-
 
 
 hacer como un sistema de mensajeria, donde se le envian los documentos a firma segun el rut, por ejemplo el de mal comportamiento donde se acusa a alguien, se le envia a esa persona para que firme.
@@ -55,3 +45,18 @@ despues hacer que si presiono un boton de firmar, la imagen se incruste como un 
 la idea es que en el formulario, cuando alguien presione firmar, se pegue la ruta de la imagen
 
 VER COMO HACER QUE CUANDO SE VUELVA A GUARDAR UNA FIRMA, LA IMAGEN ANTERIOR SE ELIMINE
+
+para que firme cada persona segun su espacio de firma, debe haber alguien que le asigne el rol, por ejemplo, se registra camilo, primero esta sin rol, luego un admin le otrogael rol de director cesfam y seleccion el cesfam al que pertenece y esoto es llave foraneo.
+luego ese formulario pendiente se le mostrara a aquella persona que sea director y sea del lugar 
+
+
+
+
+
+
+
+
+hacer que el formulario de solicitud pendiente solo se vea cuando no esta resuelto, porque si esta resuelto debe verse solo el pdf
+
+
+cambiar los radios fijos por un modal, para que al presionar en resolver, aparezca el modal, se guarde lo ultimo y luego se convierta en pdf
