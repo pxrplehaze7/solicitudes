@@ -1,11 +1,11 @@
  <?php
 
-require_once '../../dompdf/autoload.inc.php';
+require_once '../../../dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
 
 if (isset($_POST['rut'])) {
-    include("../../config/conexion.php");
+    include("../../../config/conexion.php");
 
     $primary = "SELECT MAX(IDTL) AS ultimo_id FROM solicitudes.teletrabajo";
     $resultado = mysqli_query($conn_sol, $primary);

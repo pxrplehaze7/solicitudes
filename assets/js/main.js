@@ -90,7 +90,7 @@ $("#form_teletrabajo").on("submit", function (event) {
       formData.append("rut", $("#rut").attr("value"));
 
       $.ajax({
-        url: "../../backend/agregar/add_teletrabajo.php",
+        url: "../../backend/agregar/teletrabajo/add_teletrabajo.php",
         method: "POST",
         data: formData,
         cache: false,
@@ -213,11 +213,9 @@ function enviarFirma($form) {
   });
 }
 
-
-
-// INICIO FORMULARIO CUIDADOR TEA
 $("#resolucion_tl").on("submit", function (event) {
   event.preventDefault();
+
   Swal.fire({
     title: "¿Está seguro?",
     showDenyButton: true,
@@ -232,9 +230,8 @@ $("#resolucion_tl").on("submit", function (event) {
       return;
     } else {
       let formData = new FormData(this);
-
       formData.append("idform", $("#idformulario").attr("value"));
-      console.log(formData);
+
       $.ajax({
         url: "../backend/agregar/teletrabajo/resolver_tl.php",
         method: "POST",
@@ -242,18 +239,29 @@ $("#resolucion_tl").on("submit", function (event) {
         cache: false,
         contentType: false,
         processData: false,
-      }).done(function (response) {
-        const parsedResponse = JSON.parse(response);
-        if (parsedResponse.success) {
-          Swal.fire("Éxito", parsedResponse.message, "success");
-        } else {
-          Swal.fire("Error", parsedResponse.message, "error");
-        }
       })
+      .done(function (response) {
+        console.log(response); // Esta línea mostrará la respuesta en la consola.
+        try {
+            const parsedResponse = JSON.parse(response);
+            if (parsedResponse.success) {
+                Swal.fire("Éxito", parsedResponse.message, "success").then(() => {
+                    if (parsedResponse.redirect) {
+                        window.location.href = parsedResponse.redirectURL;
+                    }
+                });
+            } else {
+                Swal.fire("Error", parsedResponse.message, "error");
+            }
+        } catch (e) {
+            Swal.fire("Error", "Error al procesar la respuesta del servidor.", "error");
+        }
+    })
+    
+    
       .fail(function (response) {
         Swal.fire("Error", "Error al procesar la solicitud.", "error");
-      })
-      
+      });
     }
   });
 });
