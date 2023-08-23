@@ -212,28 +212,48 @@ function enviarFirma($form) {
       }
   });
 }
-document.getElementById("btnResolver").addEventListener("click", function(){
+
+
+
+// INICIO FORMULARIO CUIDADOR TEA
+$("#resolucion_tl").on("submit", function (event) {
+  event.preventDefault();
   Swal.fire({
-      title: '¿Estás seguro?',
-      text: "¿Deseas resolver?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, resolver',
-      cancelButtonText: 'Cancelar'
+    title: "¿Está seguro?",
+    showDenyButton: true,
+    showCancelButton: false,
+    allowOutsideClick: false,
+    confirmButtonText: "Si",
+    confirmButtonColor: "#00c4a0",
+    denyButtonText: "No",
+    denyButtonColor: "#ba0051",
   }).then((result) => {
-      if (result.isConfirmed) {
-          var resolverDiv = document.getElementById("resolverDiv");
+    if (result.isDenied) {
+      return;
+    } else {
+      let formData = new FormData(this);
 
-          if (resolverDiv.style.display === "none") {
-              resolverDiv.style.display = "block";
-          } else {
-              resolverDiv.style.display = "none";
-          }
-
-          // Hace que el botón desaparezca
-          this.style.display = "none"; 
-      }
+      formData.append("idform", $("#idformulario").attr("value"));
+      console.log(formData);
+      $.ajax({
+        url: "../backend/agregar/teletrabajo/resolver_tl.php",
+        method: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+      }).done(function (response) {
+        const parsedResponse = JSON.parse(response);
+        if (parsedResponse.success) {
+          Swal.fire("Éxito", parsedResponse.message, "success");
+        } else {
+          Swal.fire("Error", parsedResponse.message, "error");
+        }
+      })
+      .fail(function (response) {
+        Swal.fire("Error", "Error al procesar la solicitud.", "error");
+      })
+      
+    }
   });
 });

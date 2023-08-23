@@ -1,5 +1,5 @@
 <?php
-require("../../config/conexion.php");
+require("../../../config/conexion.php");
 
 if (!empty($_POST['idform'])) {
     $idform = $_POST['idform'];
@@ -37,9 +37,6 @@ if (!empty($_POST['idform'])) {
         }
         $sql = "UPDATE solicitudes.teletrabajo SET tele_firma_ugestion = '$firma_ugestion', tele_fecha_ingreso_das = '$tele_fecha_ingreso_das' WHERE IDTL = $idform";
     }
-
-
-
 
 
     if (mysqli_query($conn_sol, $sql)) {
