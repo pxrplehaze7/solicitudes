@@ -60,3 +60,5 @@ hacer que el formulario de solicitud pendiente solo se vea cuando no esta resuel
 
 
 cambiar los radios fijos por un modal, para que al presionar en resolver, aparezca el modal, se guarde lo ultimo y luego se convierta en pdf
+
+como hacer que cuando cambie la firma se guarde bien porque como queda en variable de sesion, tengo que iniciar sesion de nuev

@@ -1,9 +1,4 @@
  <?php
-
-require_once '../../../dompdf/autoload.inc.php';
-use Dompdf\Dompdf;
-
-
 if (isset($_POST['rut'])) {
     include("../../../config/conexion.php");
 
@@ -50,7 +45,7 @@ if (isset($_POST['rut'])) {
     
     $estado = 2;
     $host = $_SERVER['HTTP_HOST'];
-    $ruta = '../../FORMULARIOS_PDF/TELETRABAJO/';
+    $ruta = '../../../FORMULARIOS_PDF/TELETRABAJO/';
     $baseURL = 'http://' . $host . '/solicitudes/FORMULARIOS_PDF/TELETRABAJO/';
 
 
@@ -66,35 +61,10 @@ if (isset($_POST['rut'])) {
 
     
     
-    $dompdf = new Dompdf();
-
-    $htmlContent = '
-    <h1>Detalles del Formulario</h1>
-    <p><strong>Nombre:</strong> ' . $_POST['nombrefuncionario'] . '</p>
-    '; // Continúa añadiendo el resto de la información que deseas en el PDF.
-
-    $dompdf->loadHtml($htmlContent);
-
-    // (Opcional) Establecer configuración de papel y orientación
-    $dompdf->setPaper('A4', 'portrait');
-
-    // Renderizar el HTML como PDF
-    $dompdf->render();
-
-
 
     if (!file_exists($ruta . $nlug . $num_formulario . '/ADJUNTOS/')) {
         mkdir($ruta . $nlug . $num_formulario . '/ADJUNTOS/', 0777, true);
     }
-
-    // Guarda el archivo
-    $nombre_pdflisto = 'FORMULARIO_TELETRABAJO_' . $rut;
-    $filename = $ruta . $nlug . $num_formulario . '/' . $nombre_pdflisto . '.pdf';
-    file_put_contents($filename, $dompdf->output());
-    
-
-    $filenameURL = $baseURL . $nlug . '/' . $num_formulario . '/' . $nombre_pdflisto . '.pdf';
-
 
 
     
@@ -149,9 +119,9 @@ if (isset($_POST['rut'])) {
     }
 
     $sql = "INSERT INTO solicitudes.teletrabajo (IDTL,IDLugar,IDSit,tele_num_formulario,tele_nomb_funcionario,tele_rut_funcionario,tele_jornada,tele_estamento,tele_desde,tele_hasta,tele_estado_solicitud,tele_fecha_solicitud,
-    tele_sistema_elegido,tele_distribucion_jor,tele_pdf_cnacimiento,tele_pdf_djurada,tele_pdf_sentencia_r,tele_pdf_a_regular,tele_pdf_establecim,tele_pdf_cinscrip,tele_pdf_copia_cinscrip,tele_pdf_compat_funcion,tele_pdf_solicitud,tele_firma_solicitante
+    tele_sistema_elegido,tele_distribucion_jor,tele_pdf_cnacimiento,tele_pdf_djurada,tele_pdf_sentencia_r,tele_pdf_a_regular,tele_pdf_establecim,tele_pdf_cinscrip,tele_pdf_copia_cinscrip,tele_pdf_compat_funcion,tele_firma_solicitante
     )
-VALUES ($id_form,$lugar,$situacion,$num_formulario,'$nombre','$rut','$jornada','$estamento','$desde','$hasta',$estado,'$fecha_solicitudf','$sistema','$distribucion','$ruta_nacimientoFINAL','$ruta_juradaFINAL','$ruta_sentenciaFINAL','$ruta_aregularFINAL','$ruta_establecimientoFINAL','$ruta_inscripcionFINAL','$ruta_copia_inscripcionFINAL','$ruta_mod_compatFINAL','$filenameURL','$firma')";
+VALUES ($id_form,$lugar,$situacion,$num_formulario,'$nombre','$rut','$jornada','$estamento','$desde','$hasta',$estado,'$fecha_solicitudf','$sistema','$distribucion','$ruta_nacimientoFINAL','$ruta_juradaFINAL','$ruta_sentenciaFINAL','$ruta_aregularFINAL','$ruta_establecimientoFINAL','$ruta_inscripcionFINAL','$ruta_copia_inscripcionFINAL','$ruta_mod_compatFINAL','$firma')";
 
     try {
         $resultado_sql = mysqli_query($conn_sol, $sql);
@@ -167,6 +137,7 @@ VALUES ($id_form,$lugar,$situacion,$num_formulario,'$nombre','$rut','$jornada','
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#009CFD'
       }).then(() => {
+        window.location.href = '../../home.php'
       });
     </script>";
         }

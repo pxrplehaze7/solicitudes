@@ -3,8 +3,13 @@
 // exit;
 
 require_once '../../../dompdf/autoload.inc.php';
+
+
 use Dompdf\Dompdf;
-require("../../../config/conexion.php");
+
+$options = new \Dompdf\Options();
+$options->set("isRemoteEnabled", true);
+$dompdf = new Dompdf($options);
 
 if (!empty($_POST['idform'])) {
     require("../../../config/conexion.php");
@@ -15,7 +20,6 @@ if (!empty($_POST['idform'])) {
     $host = $_SERVER['HTTP_HOST'];
     $ruta = '../../../FORMULARIOS_PDF/TELETRABAJO/';
     $baseURL = 'http://' . $host . '/solicitudes/FORMULARIOS_PDF/TELETRABAJO/';
-    $dompdfRoot = $_SERVER['DOCUMENT_ROOT'];
 
 
     $fechaActual = new DateTime('now', new DateTimeZone('America/Santiago'));
@@ -33,7 +37,7 @@ if (!empty($_POST['idform'])) {
     tele_fecha_resolucion = '$fecharesolucion', 
     tele_observaciones = '$observaciones'
     WHERE IDTL = $idform ";
-    
+
     if (mysqli_query($conn_sol, $sql)) {
         $consultaDatos = "SELECT * FROM solicitudes.teletrabajo WHERE IDTL = $idform";
         $resultadosdatos = mysqli_query($conn_sol, $consultaDatos);
@@ -59,44 +63,41 @@ if (!empty($_POST['idform'])) {
             $sistema_e = $dato['tele_sistema_elegido'];
             $distribucion = $dato['tele_distribucion_jor'];
             $f_director = $dato['tele_firma_direct_cesfam'];
+            // la ruta en la base de datos seria: http://localhost/solicitudes/FIRMAS/19334538-7_64e75b05bb071.png
+            $imagenPath = $_SERVER['DOCUMENT_ROOT'] . "/solicitudes/FIRMAS/" . basename($f_director);
+
             $f_subdirector = $dato['tele_firma_subdirect_das'];
             $f_ugestion = $dato['tele_firma_ugestion'];
             $f_solicitante = $dato['tele_firma_solicitante'];
             $fecha_solicitud = $dato['tele_fecha_solicitud'];
             $fecha_ingreso_das = $dato['tele_fecha_ingreso_das'];
-    
-    
-    
+
+
+
             if ($idlugar == 1) {
                 $das = 'X';
                 $nlug = 'DAS/';
             } else {
                 $das = '';
             }
-    
             if ($idlugar == 2) {
                 $pinares = 'X';
                 $nlug = 'CESFAM_Pinares/';
             } else {
                 $pinares = '';
             }
-    
-    
             if ($idlugar == 3) {
                 $leonera = 'X';
                 $nlug = 'CESFAM_La Leonera/';
             } else {
                 $leonera = '';
             }
-    
-    
             if ($idlugar == 4) {
                 $valle = 'X';
                 $nlug = 'CESFAM_Valle_la_Piedra/';
             } else {
                 $valle = '';
             }
-    
             if ($idlugar == 5) {
                 $chiguayante = 'X';
                 $nlug = 'CESFAM_Chiguayante/';
@@ -105,8 +106,8 @@ if (!empty($_POST['idform'])) {
             }
             $dompdf = new Dompdf();
             $htmlContent =
-            $htmlContent =
-            '
+                $htmlContent =
+                '
             <style>
             #tabla_lugar {
                 border-collapse: collapse;
@@ -123,6 +124,10 @@ if (!empty($_POST['idform'])) {
                 width: 20%
 
             }
+            th{
+                background-color:#00a1ba;
+                color: #fafafa;
+            }
         body {
             font-family: Arial, sans-serif;
         }
@@ -137,10 +142,10 @@ if (!empty($_POST['idform'])) {
         <table id="tabla_lugar">
         <thead>
             <tr>
-                <th>CESFAM Chiguayante</th>
-                <th>CESFAM La Leonera</th>
-                <th>CESFAM Pinares Dra. Eloísa Díaz Inzunza</th>
-                <th>CESFAM Valle La Piedra</th>
+                <th>CESFAM<br>Chiguayante</th>
+                <th>CESFAM<br>La Leonera</th>
+                <th>CESFAM<br>Pinares</th>
+                <th>CESFAM<br>Valle La Piedra</th>
                 <th>DAS</th>
             </tr>
         </thead>
@@ -167,15 +172,32 @@ if (!empty($_POST['idform'])) {
         <tr>
             <td>Nombre</td>
             <td>' . $nombre_funcionario . '</td>
-        </tr>
-        <tr>
             <td>R.U.T</td>
             <td>' . $rut_funcionario . '</td>
         </tr>
+        <tr>
+            <td>Estamento</td>
+            <td>' . $estamento . '</td>
+            <td>Jornada</td>
+            <td>' . $jornada . '</td>
+        </tr>
+        <tr>
+            <td>Situación</td>
+            <td>' . $situacion . '</td>
+        </tr>
+        <tr>
+            <td>Periodo</td>
+            <td>Desde ' . $desde . ' Hasta '.$hasta. '</td>
+        </tr>
+
+
+
+
+      }
        
     </tbody>
 </table>
-<img src="' . $dompdfRoot . $f_director . '" alt="Imagen Descriptiva" />
+<img src="' . $imagenPath . '" alt="" />
 
     ';
 
@@ -188,9 +210,9 @@ if (!empty($_POST['idform'])) {
                 mkdir($ruta . $nlug . $numero_formulario, 0777, true);
             }
             $nombre_pdflisto = 'FORMULARIO_TELETRABAJO_' . $rut_funcionario;
-            $filename = $ruta . $nlug . $numero_formulario . '/' . $nombre_pdflisto . '_' . uniqid() .'.pdf';
+            $filename = $ruta . $nlug . $numero_formulario . '/' . $nombre_pdflisto . '_' . uniqid() . '.pdf';
             file_put_contents($filename, $dompdf->output());
-            $filenameURL = $baseURL . $nlug . '/' . $numero_formulario . '/' . $nombre_pdflisto . '_' . uniqid() .'.pdf';
+            $filenameURL = $baseURL . $nlug . '/' . $numero_formulario . '/' . $nombre_pdflisto . '_' . uniqid() . '.pdf';
 
             // Respuesta de éxito con URL del PDF
             $response = array(
