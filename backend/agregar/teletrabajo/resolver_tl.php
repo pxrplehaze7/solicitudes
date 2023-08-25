@@ -51,6 +51,9 @@ if (!empty($_POST['idform'])) {
             $jornada = $dato['tele_jornada'];
             $estamento = $dato['tele_estamento'];
             $desde = $dato['tele_desde'];
+
+
+
             $hasta = $dato['tele_hasta'];
             $nacimiento = $dato['tele_pdf_cnacimiento'];
             $djurada = $dato['tele_pdf_djurada'];
@@ -104,99 +107,168 @@ if (!empty($_POST['idform'])) {
             } else {
                 $chiguayante = '';
             }
+
             $dompdf = new Dompdf();
             $htmlContent =
                 $htmlContent =
                 '
-            <style>
-            #tabla_lugar {
-                border-collapse: collapse;
-                width: 100%;
-            }
-    
-            #tabla_lugar, th, td {
-                border: 1px solid black;
-            }
-    
-            th, td {
-                padding: 5px;
-                text-align: center;
-                width: 20%
+           <style>
+    #tabla_lugar {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-            }
-            th{
-                background-color:#00a1ba;
-                color: #fafafa;
-            }
-        body {
-            font-family: Arial, sans-serif;
-        }
+    #tabla_lugar, #tabla_lugar th, #tabla_lugar td {
+        border: 1px solid black;
+    }
 
-        h1{
-            text-align: center;
-        }
-    </style>
+    #tabla_lugar th, #tabla_lugar td {
+        padding: 5px;
+        text-align: center;
+        width: 20%
+    }
+
+    #tabla_lugar th {
+        background-color: #00a1ba;
+        color: #fafafa;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+    }
+</style>
+
             
             <h1>FORMULARIO DE TELETRABAJO N° ' . $numero_formulario . ' </h1>
     
         <table id="tabla_lugar">
-        <thead>
+            <thead>
+                <tr>
+                    <th>CESFAM<br>Chiguayante</th>
+                    <th>CESFAM<br>La Leonera</th>
+                    <th>CESFAM<br>Pinares</th>
+                    <th>CESFAM<br>Valle La Piedra</th>
+                    <th>DAS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>' . $chiguayante . '</td>
+                    <td>' . $leonera . '</td>
+                    <td>' . $pinares . '</td>
+                    <td>' . $valle . '</td>
+                    <td>' . $das . '</td>
+
+                </tr>
+            </tbody>
+        </table>
+<br>
+    <table>
+        <thead style="display: none;">
             <tr>
-                <th>CESFAM<br>Chiguayante</th>
-                <th>CESFAM<br>La Leonera</th>
-                <th>CESFAM<br>Pinares</th>
-                <th>CESFAM<br>Valle La Piedra</th>
-                <th>DAS</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>' . $chiguayante . '</td>
-                <td>' . $leonera . '</td>
-                <td>' . $pinares . '</td>
-                <td>' . $valle . '</td>
-                <td>' . $das . '</td>
-
+                <td>Nombre</td>
+                <td>' . $nombre_funcionario . '</td>
+                <td>R.U.T</td>
+                <td>' . $rut_funcionario . '</td>
             </tr>
+            <tr>
+                <td>Estamento</td>
+                <td>' . $estamento . '</td>
+                <td>Jornada</td>
+                <td>' . $jornada . '</td>
+            </tr>';
+            if ($situacion == 1) {
+                $htmlContent .= '
+                <tr>
+                    <td>
+                        Situación
+                    </td>
+                    <td>
+                        Cuidado personal de al menos un niño o niña en etapa preescolar.
+                    </td>';
+
+                $htmlContent .= '</tr>';
+            } elseif ($situacion == 2) {
+                $htmlContent .= '
+                <tr>
+                    <td>
+                        Situación
+                    </td>
+                <td>
+                    Cuidado personal de al menos un niño o niña menor de 12 años.           
+                </td>';
+            } else {
+                $htmlContent .= '
+                <tr>
+                    <td>
+                        Situación
+                    </td>
+
+                    <td>
+                        Cuidado personas con alguna discapacidad. 
+                    </td>';
+            }
+            $htmlContent .= '
+                <tr>
+                    <td>Periodo</td>
+                    <td>Desde ' . $desde . ' Hasta ' . $hasta . '</td>
+                </tr>
         </tbody>
     </table>
 
-    <table>
+
+
+<table>
     <thead style="display: none;">
         <tr>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>Nombre</td>
-            <td>' . $nombre_funcionario . '</td>
-            <td>R.U.T</td>
-            <td>' . $rut_funcionario . '</td>
-        </tr>
-        <tr>
-            <td>Estamento</td>
-            <td>' . $estamento . '</td>
-            <td>Jornada</td>
-            <td>' . $jornada . '</td>
-        </tr>
-        <tr>
-            <td>Situación</td>
-            <td>' . $situacion . '</td>
-        </tr>
-        <tr>
-            <td>Periodo</td>
-            <td>Desde ' . $desde . ' Hasta '.$hasta. '</td>
-        </tr>
+    <tbody>';
+
+            if (($situacion == 1) || ($situacion == 2)) {
+                $htmlContent .=
+                    '
+
+        <tr><td>Certificado de nacimiento del menor</td>';
+
+                if (empty($dato['tele_pdf_cnacimiento'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fas fa-angle-down"></i>
+            </td>';
+                }
+
+                $htmlContent .= '</tr>';
+            }
 
 
+            $htmlContent .= '
 
 
+        <tr>
+            <td>1.<i class="fa-solid fa-circle-check"></i><br>
+            2.<i class="fa-solid fa-square-check"></i><br>
+            3.<i class="fa-regular fa-circle-check"></i></td>
+        </tr>
+       
+      
       }
        
     </tbody>
 </table>
+
 <img src="' . $imagenPath . '" alt="" />
 
     ';

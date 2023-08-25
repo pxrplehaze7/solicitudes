@@ -224,7 +224,12 @@ if (mysqli_num_rows($res) == 1) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="align-middle" width="50%">Nombre Completo</td>
+                                    <td class="align-middle">Fecha de solicitud</td>
+                                    <td class="align-middle"><?php echo date('d-m-Y', strtotime($formulario_tl['tele_fecha_solicitud'])); ?>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Nombre Completo</td>
                                     <td class="align-middle"><?php echo $formulario_tl['tele_nomb_funcionario'] ?></td>
                                 </tr>
                                 <tr>
@@ -277,7 +282,7 @@ if (mysqli_num_rows($res) == 1) {
                                 </tr>
                                 <tr>
                                     <td class="align-middle">Periodo</td>
-                                    <td class="align-middle"><?php echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?> - <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?></td>
+                                    <td class="align-middle">Desde el día <?php echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?><br>Hasta el día <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?></td>
                                 </tr>
                                 <tr>
                                     <td class="align-middle">
@@ -616,7 +621,7 @@ if (mysqli_num_rows($res) == 1) {
 
 
 
-                        
+
 
 
 
