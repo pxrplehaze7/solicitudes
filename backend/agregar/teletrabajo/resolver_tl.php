@@ -1,3 +1,4 @@
+
 <?php
 // echo json_encode(['success' => true, 'message' => 'Test exitoso']);
 // exit;
@@ -8,9 +9,12 @@ require_once '../../../dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
 $options = new \Dompdf\Options();
-$options->set("isRemoteEnabled", true);
-$dompdf = new Dompdf($options);
+$options->set('isHtml5ParserEnabled', true);
+$options->set("isPhpEnabled", true);
 
+$options->set("isRemoteEnabled", true);
+// $options->set('tempDir', sys_get_temp_dir());
+$dompdf = new Dompdf($options);
 if (!empty($_POST['idform'])) {
     require("../../../config/conexion.php");
 
@@ -67,7 +71,7 @@ if (!empty($_POST['idform'])) {
             $distribucion = $dato['tele_distribucion_jor'];
             $f_director = $dato['tele_firma_direct_cesfam'];
             // la ruta en la base de datos seria: http://localhost/solicitudes/FIRMAS/19334538-7_64e75b05bb071.png
-            $imagenPath = $_SERVER['DOCUMENT_ROOT'] . "/solicitudes/FIRMAS/" . basename($f_director);
+            // $imagenPath = $_SERVER['DOCUMENT_ROOT'] . "/solicitudes/FIRMAS/" . basename($f_director);
 
             $f_subdirector = $dato['tele_firma_subdirect_das'];
             $f_ugestion = $dato['tele_firma_ugestion'];
@@ -108,11 +112,17 @@ if (!empty($_POST['idform'])) {
                 $chiguayante = '';
             }
 
-            $dompdf = new Dompdf();
+            // $dompdf = new Dompdf();
+
             $htmlContent =
-                $htmlContent =
                 '
-           <style>
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+<link rel="stylesheet" href="http://localhost/solicitudes/assets/styles/fontawesome-free-6.4.2-web/css/all.min.css">
+
+<style>
     #tabla_lugar {
         border-collapse: collapse;
         width: 100%;
@@ -131,6 +141,7 @@ if (!empty($_POST['idform'])) {
     #tabla_lugar th {
         background-color: #00a1ba;
         color: #fafafa;
+        font-size:13px;
     }
 
     body {
@@ -140,34 +151,112 @@ if (!empty($_POST['idform'])) {
     h1 {
         text-align: center;
     }
+
+
+
+    #firmas {
+        width: 100%;
+    }
+    #firmas, #firmas th, #firmas td {
+        border: 1px solid black;
+    }
+
+    #firmas th, #firmas td {
+        padding: 5px;
+        text-align: center;
+        width: 20%
+    }
+
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .col-4 {
+        width: 33.33%;
+        padding: 5px;
+    }
+
+    .col-4 img {
+        width: 100%;
+        height: auto;
+    }
+    .nombrefirma{
+        text-align:center;
+    }
+
+    #adjuntos {
+        border-collapse: collapse;
+        width: 100%;
+        font-size:13px;
+    }
+
+    #adjuntos, #adjuntos caption, #adjuntos td {
+        border: 1px solid black;
+    }
+
+    #adjuntos th, #adjuntos td {
+        padding: 5px;
+        text-align: center;
+        width: 20%
+    }
+
+
+    #adjuntos thead {
+            display:none;    
+        }
+
+        
+    #adjuntos td:first-child {
+        width: 90%;
+        text-align: left;
+    }
+
+    #adjuntos td:last-child {
+        text-align: center;
+        width: 10%;
+    }
 </style>
 
-            
-            <h1>FORMULARIO DE TELETRABAJO N° ' . $numero_formulario . ' </h1>
+</head>
+               
+<body>
     
-        <table id="tabla_lugar">
-            <thead>
-                <tr>
-                    <th>CESFAM<br>Chiguayante</th>
-                    <th>CESFAM<br>La Leonera</th>
-                    <th>CESFAM<br>Pinares</th>
-                    <th>CESFAM<br>Valle La Piedra</th>
-                    <th>DAS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>' . $chiguayante . '</td>
-                    <td>' . $leonera . '</td>
-                    <td>' . $pinares . '</td>
-                    <td>' . $valle . '</td>
-                    <td>' . $das . '</td>
+    <h1 style="font-size:25px">FORMULARIO DE TELETRABAJO N° ' . $numero_formulario . ' </h1>
 
-                </tr>
-            </tbody>
-        </table>
+    <table id="tabla_lugar">
+        <thead>
+            <tr>
+                <th>CESFAM<br>Chiguayante</th>
+                <th>CESFAM<br>La Leonera</th>
+                <th>CESFAM<br>Pinares</th>
+                <th>CESFAM<br>Valle La Piedra</th>
+                <th>DAS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>' . $chiguayante . '</td>
+                <td>' . $leonera . '</td>
+                <td>' . $pinares . '</td>
+                <td>' . $valle . '</td>
+                <td>' . $das . '</td>
+            </tr>
+        </tbody>
+    </table>
 <br>
-    <table>
+    <table id="tabla_lugar">
         <thead style="display: none;">
             <tr>
                 <th></th>
@@ -227,49 +316,138 @@ if (!empty($_POST['idform'])) {
     </table>
 
 
-
-<table>
-    <thead style="display: none;">
+<br>
+<table id="adjuntos">
+        <caption style="background-color: #00a1ba; color: #fafafa; border:1px solid black; padding-top:5px; padding-bottom:5px;">
+        Documentos Requeridos</caption>
+    <thead>
         <tr>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>';
-
             if (($situacion == 1) || ($situacion == 2)) {
-                $htmlContent .=
-                    '
-
-        <tr><td>Certificado de nacimiento del menor</td>';
-
+                $htmlContent .= '
+    <tr>
+        <td>Certificado de nacimiento del menor</td>';
                 if (empty($dato['tele_pdf_cnacimiento'])) {
-                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark"></i></td>';
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
                 } else {
-                    $htmlContent .= '<td><i class="fas fa-angle-down"></i>
-            </td>';
-                }
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
 
-                $htmlContent .= '</tr>';
-            }
+                $htmlContent .= '
+    <tr>
+        <td>Declaración Jurada que establece que el cuidador ejerce sus funciones sin ayuda</td>';
+                if (empty($dato['tele_pdf_djurada'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+
+
+                $htmlContent .= '
+    <tr>
+        <td>Sentencia Judicial o resolución (según sea el caso</td>';
+                if (empty($dato['tele_pdf_sentencia_r'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+            };
+
+
+
+            if (($situacion == 2)) {
+                $htmlContent .= '
+    <tr>
+        <td>Certificado de Alumno Regular</td>';
+                if (empty($dato['tele_pdf_cnacimiento'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+
+                $htmlContent .= '
+    <tr>
+        <td>Certificado del establecimiento de educación al que asiste el niño, niña o adolecente, que acredite el cierre de la institución</td>';
+                if (empty($dato['tele_pdf_djurada'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+            };
+
+            
+            if (($situacion == 3)) {
+                $htmlContent .= '
+    <tr>
+        <td>Certificado de inscripción en el Registro Nacional de la Discapacidad de la persona bajo su cuidado</td>';
+                if (empty($dato['tele_pdf_cnacimiento'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+
+                $htmlContent .= '
+    <tr>
+        <td>Copia del certificado, credencial o inscripción de discapacidad en el referido registro, emitido por la autoridad competente, en los términos de los artículos 13 y 17, ambos de la citada ley, correspondientes a la persona que tengan a su cuidado. O podrá acreditarse la discapacidad de esta última a través de la calidad de asignatario de pensión de invalidez</td>';
+                if (empty($dato['tele_pdf_djurada'])) {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                } else {
+                    $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+    </tr>';
+                };
+            };
+
+            $htmlContent .= '
+            <tr>
+                <td>Certificado de jefe directo que indica que modalidad es compatible con teletrabajo (debe contener lugar, sistema elegido, así como la modalidad de control y supervisión de las funciones)</td>';
+                        if (empty($dato['tele_pdf_djurada'])) {
+                            $htmlContent .= '<td><i class="fa-solid fa-circle-xmark" style="color: #f82616;"></i></td>';
+                        } else {
+                            $htmlContent .= '<td><i class="fa-solid fa-circle-check" style="color: #00b303;"></i></td>
+            </tr>';
+                        };
+
 
 
             $htmlContent .= '
-
-
-        <tr>
-            <td>1.<i class="fa-solid fa-circle-check"></i><br>
-            2.<i class="fa-solid fa-square-check"></i><br>
-            3.<i class="fa-regular fa-circle-check"></i></td>
-        </tr>
-       
-      
-      }
-       
     </tbody>
 </table>
 
-<img src="' . $imagenPath . '" alt="" />
+
+<table id="table">
+<thead>
+    <tr>
+        <th class="col-4 nombrefirma"><img src="' . $f_director . '" alt="" /></th>
+        <th class="col-4 nombrefirma"><img src="' . $f_subdirector . '" alt="" /></th>
+        <th class="col-4 nombrefirma"><img src="' . $f_ugestion . '" alt="" /></th>
+       
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="nombrefirma">Firma Director(a)<br>CESFAM</td>
+        <td class="nombrefirma">Firma Subdirector<br>Administrativo DAS</td>
+        <td class="nombrefirma">Firma Jefe Unidad de Gestión<br>y Desarrollo de Personas</td>
+    </tr>
+</tbody>
+</table>
+
+
+
+
+
+</body>
+</html>
 
     ';
 

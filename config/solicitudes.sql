@@ -68,16 +68,23 @@ VALUES (4,'Otro.');
 
 CREATE TABLE `solicitudes`.`usuario_solicitudes`(
     `IDUsu` INT NOT NULL AUTO_INCREMENT,
-    `usuario_nombre` VARCHAR (300),
-    `usuario_rut` VARCHAR (10),
-    `usuario_correo` VARCHAR (100),
-    `usuario_contrasenna` VARCHAR (300),
-    `usuario_rol` BOOLEAN,
-    `firma` VARCHAR (400),
+    `usuario_nombre` VARCHAR (300) NOT NULL,
+    `usuario_rut` VARCHAR (10) NOT NULL,
+    `usuario_correo` VARCHAR (100) NOT NULL,
+    `usuario_contrasenna` VARCHAR (300) NOT NULL,
+    `usuario_rol` BOOLEAN NOT NULL,
+    `firma` VARCHAR (400) NULL,
     PRIMARY KEY (IDUsu)
 )ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
+/* VER QUE ROLES EXISTIRAN SEGUN EL LUGAR POR EJEMPLO ESTARA DIRECTOR CESFAM pinares o jefe directo de quien */
 
 
+CREATE TABLE `solicitudes`.`encabezado`(
+    `IDIMG` INT NOT NULL AUTO_INCREMENT,
+    `nombre_imagen` VARCHAR (150) NULL,
+    `ruta_imagen` VARCHAR (400) NULL,
+    PRIMARY KEY (IDIMG)
+)ENGINE = InnoDB CHARSET = utf8 COLLATE utf8_spanish_ci;
 
 
 

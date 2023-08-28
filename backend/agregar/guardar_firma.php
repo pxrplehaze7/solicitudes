@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("../../config/conexion.php");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -34,6 +35,8 @@ file_put_contents($rutaFirma, $decodedData);
 $sql = "UPDATE solicitudes.usuario_solicitudes SET firma ='$rutaFirmaFINAL' WHERE usuario_rut='$rut'";
 
 if ($conn->query($sql) === TRUE) {
+    $_SESSION['firma']=$rutaFirmaFINAL;
+
     echo json_encode(['status' => 'success', 'message' => 'Imagen guardada exitosamente!']);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Error al guardar imagen: ' . $conn->error]);
