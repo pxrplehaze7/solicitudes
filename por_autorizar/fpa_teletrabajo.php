@@ -5,6 +5,7 @@ include(".././config/conexion.php");
 session_start();
 if (!isset($_SESSION['rol']) == 1)
 
+
 // deberia ser 0 pero por mientras pongo 1 para verlo
 {
     header('Location: ../login.php');
@@ -12,8 +13,34 @@ if (!isset($_SESSION['rol']) == 1)
 }
 
 
-
 // SI NO HAY RESULTADOS DE LA CONSULTA, REDIRIGE A INICIO
+
+function mesEnTexto($mesNumero)
+{
+    $meses = array(
+        '01' => 'enero',
+        '02' => 'febrero',
+        '03' => 'marzo',
+        '04' => 'abril',
+        '05' => 'mayo',
+        '06' => 'junio',
+        '07' => 'julio',
+        '08' => 'agosto',
+        '09' => 'septiembre',
+        '10' => 'octubre',
+        '11' => 'noviembre',
+        '12' => 'diciembre'
+    );
+    return $meses[$mesNumero];
+}
+
+
+
+
+
+
+
+
 
 $idtl = $_GET['idtl'];
 $query = "SELECT * FROM solicitudes.teletrabajo WHERE IDTL = '$idtl'";
@@ -51,20 +78,16 @@ if (mysqli_num_rows($res) == 1) {
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="home.php"><img src="../../assets/img/logo.png" width="30px"> DAS Chiguayante</a>
+            <a class="navbar-brand ps-3" href="home.php"><img src="../assets/img/logo.png" width="30px"></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                 </svg></button>
             <!-- Navbar Search-->
-            <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-end" action="" method="POST" id="searchForm">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="nameBuscaRut" id="nameBuscaRut" placeholder="19876543-K" pattern="^\d{7,8}-[kK\d]$" maxlength="10" minlength="9" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary btn-buscar" id="btnNavbarSearch" type="submit" disabled><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg></button>
-                </div>
-            </form>
+            <!-- <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-end" id="searchForm">
+                
+            </form> -->
+            <div class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-end" id="searchForm"></div>
             <!-- Navbar-->
             <ul class="navbar-nav me-3">
                 <li class="nav-item dropdown">
@@ -225,8 +248,14 @@ if (mysqli_num_rows($res) == 1) {
                             <tbody>
                                 <tr>
                                     <td class="align-middle">Fecha de solicitud</td>
-                                    <td class="align-middle"><?php echo date('d-m-Y', strtotime($formulario_tl['tele_fecha_solicitud'])); ?>
-                                </td>
+                                    <?php
+
+                                    $fecha = strtotime($formulario_tl['tele_fecha_solicitud']);
+                                    $dia = date('d', $fecha);
+                                    $mes = mesEnTexto(date('m', $fecha));
+                                    $ano = date('Y', $fecha);
+
+                                    echo "<td class='align-middle'>{$dia} de {$mes} de {$ano}</td>";                         ?>
                                 </tr>
                                 <tr>
                                     <td class="align-middle">Nombre Completo</td>
@@ -282,7 +311,32 @@ if (mysqli_num_rows($res) == 1) {
                                 </tr>
                                 <tr>
                                     <td class="align-middle">Periodo</td>
-                                    <td class="align-middle">Desde el día <?php echo date('d-m-Y', strtotime($formulario_tl['tele_desde'])); ?><br>Hasta el día <?php echo date('d-m-Y', strtotime($formulario_tl['tele_hasta'])); ?></td>
+
+
+                                    <?php
+
+                                    $fechadesde = strtotime($formulario_tl['tele_desde']);
+                                    $diadesde = date('d', $fechadesde);
+                                    $mesdesde = mesEnTexto(date('m', $fechadesde));
+                                    $anodesde = date('Y', $fechadesde);
+
+                                    $fechahasta = strtotime($formulario_tl['tele_hasta']);
+                                    $diahasta = date('d', $fechahasta);
+                                    $meshasta = mesEnTexto(date('m', $fechahasta));
+                                    $anohasta = date('Y', $fechahasta);
+
+
+                                    echo "<td class='align-middle'>Desde el día {$diadesde} de {$mesdesde} de {$anodesde}<br>Hasta el día {$diahasta} de {$meshasta} de {$anohasta}</td>";
+
+
+                                    ?>
+
+
+
+
+
+
+
                                 </tr>
                                 <tr>
                                     <td class="align-middle">
@@ -523,6 +577,7 @@ if (mysqli_num_rows($res) == 1) {
                         <div class="contenedor-firma">
                             <div class="firma-solicitante">
                                 <img src="<?php echo $formulario_tl['tele_firma_solicitante'] ?>" width="250px">
+                                <hr class="linea-firma">
                                 <p>Firma Solicitante</p>
                             </div>
                         </div>
@@ -534,6 +589,7 @@ if (mysqli_num_rows($res) == 1) {
                                 <div class="d-flex flex-column align-items-center conten">
                                     <?php if (isset($formulario_tl['tele_firma_direct_cesfam']) && !empty($formulario_tl['tele_firma_direct_cesfam'])) { ?>
                                         <img src="<?php echo $formulario_tl['tele_firma_direct_cesfam'] ?>" width="250px">
+                                        <hr class="linea-firma">
                                     <?php } else { ?>
                                         <div class="row pendiente-todo">
                                             <div class="icono-pendiente row">
@@ -563,6 +619,8 @@ if (mysqli_num_rows($res) == 1) {
                                 <div class="d-flex flex-column align-items-center conten">
                                     <?php if (isset($formulario_tl['tele_firma_subdirect_das']) && !empty($formulario_tl['tele_firma_subdirect_das'])) { ?>
                                         <img src="<?php echo $formulario_tl['tele_firma_subdirect_das'] ?>" width="250px">
+                                        <hr class="linea-firma">
+
                                     <?php } else { ?>
                                         <div class="row pendiente-todo">
                                             <div class="icono-pendiente row">
@@ -594,6 +652,7 @@ if (mysqli_num_rows($res) == 1) {
                                 <div class="d-flex flex-column align-items-center conten">
                                     <?php if (isset($formulario_tl['tele_firma_ugestion']) && !empty($formulario_tl['tele_firma_ugestion'])) { ?>
                                         <img src="<?php echo $formulario_tl['tele_firma_ugestion'] ?>" width="250px">
+                                        <hr class="linea-firma">
                                     <?php } else { ?>
                                         <div class="row pendiente-todo">
                                             <div class="icono-pendiente row">
@@ -619,17 +678,19 @@ if (mysqli_num_rows($res) == 1) {
                             </div>
                         </div>
 
+<br>
 
+                        <div class="contenedor-resolver">
+                            <button class="cssbuttons-io-button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> Resolver
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
 
-
-
-
-
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Resolver
-                        </button>
 
                         <!-- Modal -->
                         <form id="resolucion_tl" method="post">
@@ -678,7 +739,7 @@ if (mysqli_num_rows($res) == 1) {
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="submit" class="btn btn-guardamodal">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
